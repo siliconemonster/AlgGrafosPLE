@@ -66,6 +66,21 @@ public class Graph {
     public void BFS( Integer id_raiz ) {
         Vertex raiz = vertex_set.get( id_raiz );
         // fazer
+        //---------- Utilizei ajuda do livro do Jayme ----------
+        Set<String> visitado = new LinkedHashSet<String>();
+        Queue<String> fila = new LinkedList<String>();
+        visitado.add(raiz);
+        fila.add(raiz);
+        while (!fila.isEmpty()) {
+            String vertex = fila.poll();
+            for (Vertex v : graph.getAdjVertices(vertex)) {
+                if (!visitado.contains(v.label)) {
+                    visitado.add(v.label);
+                    fila.add(v.label);
+                }
+            }
+        }
+        return visited;
     }
 
     public void print() {
