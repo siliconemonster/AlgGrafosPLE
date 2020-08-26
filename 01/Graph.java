@@ -31,24 +31,32 @@ public class Graph {
 //        add_arc( id2, id1 );
     }
 
+    int grau[/*quantidade de vértices*/];
     public int degree(){
-        int grau[/*quantidade de vértices*/];
-
-        for(int i = 0; i <= grau.size; i++){
-            grau[i] = 0;
-        }
-        for(int i = 0; i <= grau.size; i++){
-            for(int j = 0; j <= /*quantidade de vizinhos*/; j++){
-                grau[i]++;
-            }
-            //Para testar a funcionalidade da função
-            System.out.print("Grau do vértice " + i + " é " + grau[i]);
-        }
+      for(int i = 0; i <= grau.size; i++){
+          grau[i] = 0;
+      }
+      for(int i = 0; i <= grau.size; i++){
+          for(int j = 0; j <= /*quantidade de vizinhos*/; j++){
+              grau[i]++;
+          }
+          //Para testar a funcionalidade da função
+          System.out.print("Grau do vértice " + i + " é " + grau[i]);
+      }
     }
 
     public int max_degree() {
         // fazer
-        //---------- Utilizei ajuda do livro do Jayme ----------
+        //---------- tentei fazer da cabeça ----------
+        int temp = 0;
+
+        for(int i = 1; i <= /*quantidade de vértices*/; i++){
+          if (degree[i] > degree[i-1]){
+            temp = i;
+          }
+        }
+        System.out.print("O grau máximo é " + grau[temp]);
+
 
         return 0;
     }
