@@ -41,6 +41,7 @@ public class Graph {
             for(int j = 0; j <= /*quantidade de vizinhos*/; j++){
                 grau[i]++;
             }
+            //Para testar a funcionalidade da função
             System.out.print("Grau do vértice " + i + " é " + grau[i]);
         }
     }
