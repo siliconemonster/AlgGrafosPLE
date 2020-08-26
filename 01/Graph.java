@@ -31,6 +31,7 @@ public class Graph {
 //        add_arc( id2, id1 );
     }
 
+    //adicionei esse método
     int grau[/*quantidade de vértices*/];
     public int degree(){
       for(int i = 0; i <= grau.size; i++){
