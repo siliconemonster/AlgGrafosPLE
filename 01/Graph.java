@@ -38,7 +38,8 @@ public class Graph {
             degree[i] = 0;
         }
         for(int i = 0; i <= vertex_set.size; i++){
-            degree[i] = nbhood.values()
+            degree[i] = nbhood.values();
+            print("Grau do vértice " + i + " é " + degree[i]);
         }
     }
 
