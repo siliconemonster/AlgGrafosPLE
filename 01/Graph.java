@@ -32,19 +32,23 @@ public class Graph {
     }
 
     public int degree(){
-        int[] degree;
+        int grau[/*quantidade de vértices*/];
 
-        for(int i = 0; i <= vertex_set.size; i++){
-            degree[i] = 0;
+        for(int i = 0; i <= grau.size; i++){
+            grau[i] = 0;
         }
-        for(int i = 0; i <= vertex_set.size; i++){
-            degree[i] = nbhood.values();
-            print("Grau do vértice " + i + " é " + degree[i]);
+        for(int i = 0; i <= grau.size; i++){
+            for(int j = 0; j <= /*quantidade de vizinhos*/; j++){
+                grau[i]++;
+            }
+            System.out.print("Grau do vértice " + i + " é " + grau[i]);
         }
     }
 
     public int max_degree() {
         // fazer
+        //---------- Utilizei ajuda do livro do Jayme ----------
+
         return 0;
     }
 
