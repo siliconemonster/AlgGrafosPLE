@@ -8,12 +8,12 @@ public class Graph {
     public Graph() {
         vertex_set = new HashMap<Integer,Vertex>();
     }
-    
+
     public void add_vertex() {
         Vertex v = new Vertex( vertex_set.size()+1 );
         vertex_set.put( v.id, v );
     }
-    
+
     public void add_arc( Integer id1, Integer id2) {
         Vertex v1 = vertex_set.get(id1);
         Vertex v2 = vertex_set.get(id2);
@@ -31,6 +31,17 @@ public class Graph {
 //        add_arc( id2, id1 );
     }
 
+    public int degree(){
+        int[] degree;
+
+        for(int i = 0; i <= /*número de vértices*/; i++){
+            degree[i] = 0;
+        }
+        for(int i = 0; i <= /*número de vértices*/; i++){
+            degree[i] = nbhood.values()
+        }
+    }
+
     public int max_degree() {
         // fazer
         return 0;
@@ -40,7 +51,7 @@ public class Graph {
         // fazer
         return false;
     }
-    
+
     public Graph subjacent() {
         // fazer
         return this;
@@ -50,7 +61,7 @@ public class Graph {
         // fazer
         return false;
     }
-    
+
     public void BFS( Integer id_raiz ) {
         Vertex raiz = vertex_set.get( id_raiz );
         // fazer
@@ -63,4 +74,3 @@ public class Graph {
             vertex_set.get(i).print();
     }
 }
-
