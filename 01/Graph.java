@@ -34,10 +34,10 @@ public class Graph {
     public int degree(){
         int[] degree;
 
-        for(int i = 0; i <= /*número de vértices*/; i++){
+        for(int i = 0; i <= vertex_set.size; i++){
             degree[i] = 0;
         }
-        for(int i = 0; i <= /*número de vértices*/; i++){
+        for(int i = 0; i <= vertex_set.size; i++){
             degree[i] = nbhood.values()
         }
     }
