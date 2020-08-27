@@ -103,7 +103,6 @@ public class Graph {
             }
         }
         return g2;
-        return this;
     }
 
     public boolean is_connected() {
