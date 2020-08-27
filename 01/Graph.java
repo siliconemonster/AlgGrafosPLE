@@ -63,6 +63,18 @@ public class Graph {
 
     public boolean is_undirected() {
         // fazer
+        //-----parte do professor------
+        /*explicação:
+        Para cada vértice v1 do grafo, para cada vizinho v2 desse vértice,
+        se v1 for vizinho de v2 mas v2 não for vizinho de v1, não é não
+        direcionado.*/
+        
+        for( Vertex v1 : vertex_set.values()) {
+            for( Vertex v2 : v1.nbhood.values()) {
+                if (v2.nbhood.get(v1.id) == null)
+                    return false;
+            }
+        }
         return false;
     }
 
