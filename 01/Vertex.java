@@ -1,8 +1,8 @@
 import java.util.HashMap;
 
 public class Vertex {
-    public Integer id;
-    private HashMap<Integer,Vertex> nbhood;
+    protected Integer id;
+    protected HashMap<Integer,Vertex> nbhood;
 
     public Vertex ( int id ) {
         this.id = id;
