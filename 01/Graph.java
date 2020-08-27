@@ -132,9 +132,14 @@ public class Graph {
     }
 
     public void print() {
-        System.out.println("Grafo: ");
+        System.out.printf("\n\n Grafo, grau máximo %d", this.max_degree());
 
-        for(int i = 1; i <= vertex_set.size(); i++)
-            vertex_set.get(i).print();
+        if( this.is_undirected() )
+            System.out.println("\nNão direcionado");
+        else
+            System.out.println("\nDirecionado");
+
+        for( Vertex v : vertex_set.values())
+            v.print();
     }
 }
