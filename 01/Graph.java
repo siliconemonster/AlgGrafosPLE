@@ -68,7 +68,7 @@ public class Graph {
         Para cada vértice v1 do grafo, para cada vizinho v2 desse vértice,
         se v1 for vizinho de v2 mas v2 não for vizinho de v1, não é não
         direcionado.*/
-        
+
         for( Vertex v1 : vertex_set.values()) {
             for( Vertex v2 : v1.nbhood.values()) {
                 if (v2.nbhood.get(v1.id) == null)
@@ -80,6 +80,29 @@ public class Graph {
 
     public Graph subjacent() {
         // fazer
+        //-----parte do professor------
+        /*explicação:
+        Cria-se um novo objeto tipo Graph g2 para não sobrescrever
+        o grafo que já temos, e adicionamos todos os vértices de g1
+        em g2.
+        Para cada vértice v11 pertencente ao grafo g1, e para cada
+        vértice v12 vizinho de v11
+        ?????? pega-se o id de cada vértice em g1 para botar em g2 ??????
+        adiciona-se o v22 de vizinho do v21 e o v21 de vizinho do v22*/
+
+        Graph g2 = new Graph();
+        for( Vertex v11 : this.vertex_set.values()) {
+            g2.add_vertex( v11.id );
+        }
+        for( Vertex v11 : this.vertex_set.values()) {
+            for( Vertex v12 : v11.nbhood.values()) {
+                Vertex v21 = g2.vertex_set.get( v11.id );
+                Vertex v22 = g2.vertex_set.get( v12.id );
+                v21.add_neighbor( v22 );
+                v22.add_neighbor( v21 );
+            }
+        }
+        return g2;
         return this;
     }
 
