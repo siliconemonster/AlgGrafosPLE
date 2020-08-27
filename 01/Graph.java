@@ -31,6 +31,13 @@ public class Graph {
 //        add_arc( id2, id1 );
     }
 
+    public void del_vertex( int id ) {
+        // fazer
+    }
+
+    public void compact() {
+        // fazer
+    }
 
 
     public int max_degree() {
