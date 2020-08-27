@@ -31,12 +31,14 @@ public class Graph {
 //        add_arc( id2, id1 );
     }
 
+
+
     public int max_degree() {
         // fazer
         //---------- tentei fazer da cabeça ----------
-        int temp = 0;
+/*        int temp = 0;
 
-        for(int i = 1; i <= /*quantidade de vértices*/; i++){
+        for(int i = 1; i <= /*quantidade de vértices*//*; i++){
           if (degree[i] > degree[i-1]){
             temp = i;
           }
@@ -45,6 +47,18 @@ public class Graph {
 
 
         return 0;
+    }*/
+
+      //---------- parte do professor ----------
+      int max = -1;
+
+      //vertex_set.size() = quantidade de vértices
+      for(int i = 1; i <= vertex_set.size(); i++){
+        if (vertex_set.get(i).degree() > max){
+          max = vertex_set.get(i).degree();
+        }
+      }
+      return max;
     }
 
     public boolean is_undirected() {
