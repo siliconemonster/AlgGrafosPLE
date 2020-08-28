@@ -9,9 +9,13 @@ public class Graph {
         vertex_set = new HashMap<Integer,Vertex>();
     }
 
-    public void add_vertex() {
-        Vertex v = new Vertex( vertex_set.size()+1 );
-        vertex_set.put( v.id, v );
+    public void add_vertex( int id ) {
+        if ( this.vertex_set.get( id ) == null ) {
+            Vertex v = new Vertex( id );
+            vertex_set.put( v.id, v );
+        }
+        else
+            System.out.printf("Já existe vértice com esse número");
     }
 
     public void add_arc( Integer id1, Integer id2) {
