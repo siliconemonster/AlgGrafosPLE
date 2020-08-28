@@ -121,7 +121,7 @@ public class Graph {
         return false;
     }
 
-    public void BFS( Integer id_raiz ) {
+    public void BFS( Integer id_raiz ) {/*
         Vertex raiz = vertex_set.get( id_raiz );
         // fazer
         //---------- Utilizei ajuda do livro do Jayme ----------
@@ -138,7 +138,7 @@ public class Graph {
                 }
             }
         }
-        return visited;
+        return visited;*/
     }
 
     public void print() {
