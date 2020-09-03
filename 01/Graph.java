@@ -130,24 +130,25 @@ public class Graph {
         return false;
     }
 
-    public void BFS( Integer id_raiz ) {/*
-        Vertex raiz = vertex_set.get( id_raiz );
+    public void BFS( Integer id_raiz ) {
+        Vertex raiz = vertex_set.get( id_raiz ); //uma raiz local ao método
         // fazer
-        //---------- Utilizei ajuda do livro do Jayme ----------
-        Set<String> visitado = new LinkedHashSet<String>();
-        Queue<String> fila = new LinkedList<String>();
-        visitado.add(raiz);
-        fila.add(raiz);
-        while (!fila.isEmpty()) {
-            String vertex = fila.poll();
-            for (Vertex v : graph.getAdjVertices(vertex)) {
-                if (!visitado.contains(v.label)) {
-                    visitado.add(v.label);
-                    fila.add(v.label);
-                }
+        raiz.dist = 0; //distancia inicial é zero pra qualquer outro vértices
+                       //porque ainda não começou a contar nada;
+
+        Queue<Vertex> lista = new LinkedList<Vertex>();//cria uma lista
+        lista.add( raiz ) ; //o primeiro a ser posto na fila (não sei por que ele chamou de lista)
+
+        Vertex atual; //vértice que está sendo visitado
+
+        while ((atual = lista.poll()) != null) {
+          for (Vertex viz : atual.nbhood.values() ){
+            if( viz.dist == null ){
+              viz.discover( atual );
+              lista.add( viz );
             }
+          }
         }
-        return visited;*/
     }
 
     public void print() {
