@@ -49,7 +49,35 @@ public class Graph {
     }
 
     public void compact() {
-        // fazer
+        // feito
+        int n = vertex_set.size();
+    		int [ ] present = new int[n+1];
+    		Vertex [ ] stranges = new Vertex[n];
+    		for( int i = 1; i <= n; i++) {
+    			present[ i ] = 0;
+    		}
+    		int qst = 0;
+            for( Vertex v1 : vertex_set.values() ) {
+    			if( v1.id <= n )
+    				present[ v1.id ] = 1;
+    			else
+    				stranges[ qst++ ] = v1;
+    		}
+    		int i = 1;
+    		for( int pairs = 0; pairs < qst; i++ ) {
+    			if( present[ i ] == 0)		
+    				present[ pairs++ ] = i;
+    		}
+    		for( i = 0; i < qst; i++) {
+    			int old_id = stranges[ i ].id;
+    			stranges[ i ].id = present[ i ];
+    			for( Vertex v1 : vertex_set.values() ) {
+    				if( v1.nbhood.get( old_id ) != null ) {
+    					v1.nbhood.remove( old_id );
+    					v1.nbhood.put( stranges[ i ].id, stranges[ i ] );
+    				}
+    			}
+    		}
     }
 
 
@@ -132,7 +160,7 @@ public class Graph {
 
     public void BFS( Integer id_raiz ) {
         Vertex raiz = vertex_set.get( id_raiz ); //uma raiz local ao método
-        // fazer
+        // feito
         raiz.dist = 0; //distancia inicial é zero pra qualquer outro vértices
                        //porque ainda não começou a contar nada;
 
