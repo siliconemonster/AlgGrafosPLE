@@ -1,6 +1,8 @@
+import java.io.Serializable;
 import java.util.HashMap;
-
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Graph {
     private HashMap<Integer,Vertex> vertex_set;
@@ -37,6 +39,13 @@ public class Graph {
 
     public void del_vertex( int id ) {
         // fazer
+        //Esse método primeiro procura todos os vértices que tem o
+        //vértice id como vizinho e tira de cada vizinhança; e depois
+        //remove o próprio vértice
+        for ( Vertex v1 : vertex_set.values()){
+          v1.nbhood.remove( id );
+        }
+        vertex_set.remove(id);
     }
 
     public void compact() {
