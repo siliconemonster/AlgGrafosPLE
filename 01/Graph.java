@@ -38,7 +38,7 @@ public class Graph {
     }
 
     public void del_vertex( int id ) {
-        // fazer
+        // feito
         //Esse método primeiro procura todos os vértices que tem o
         //vértice id como vizinho e tira de cada vizinhança; e depois
         //remove o próprio vértice
@@ -54,7 +54,7 @@ public class Graph {
 
 
     public int max_degree() {
-        // fazer
+        // feito
         //---------- tentei fazer da cabeça ----------
 /*        int temp = 0;
 
@@ -82,7 +82,7 @@ public class Graph {
     }
 
     public boolean is_undirected() {
-        // fazer
+        // feito
         //-----parte do professor------
         /*explicação:
         Para cada vértice v1 do grafo, para cada vizinho v2 desse vértice,
@@ -99,7 +99,7 @@ public class Graph {
     }
 
     public Graph subjacent() {
-        // fazer
+        // feito
         //-----parte do professor------
         /*explicação:
         Cria-se um novo objeto tipo Graph g2 para não sobrescrever
