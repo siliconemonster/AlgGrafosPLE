@@ -65,7 +65,7 @@ public class Graph {
     		}
     		int i = 1;
     		for( int pairs = 0; pairs < qst; i++ ) {
-    			if( present[ i ] == 0)		
+    			if( present[ i ] == 0)
     				present[ pairs++ ] = i;
     		}
     		for( i = 0; i < qst; i++) {
@@ -123,7 +123,7 @@ public class Graph {
                     return false;
             }
         }
-        return false;
+        return true;
     }
 
     public Graph subjacent() {
