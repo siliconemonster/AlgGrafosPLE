@@ -158,6 +158,11 @@ public class Graph {
         return false;
     }
 
+    public int count_components() {
+		    // fazer
+		  return -1;
+	  }
+
     public void BFS( Integer id_raiz ) {
         Vertex raiz = vertex_set.get( id_raiz ); //uma raiz local ao método
         // feito
