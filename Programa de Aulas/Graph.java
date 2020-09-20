@@ -4,12 +4,19 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class Graph {
+public class Graph implements Serializable {
     private HashMap<Integer,Vertex> vertex_set;
+    private int time;
+    private Boolean acyclic;
 
     public Graph() {
         vertex_set = new HashMap<Integer,Vertex>();
+        acyclic = null;
     }
+
+    public void add_vertex( ) {
+		// fazer: utilizar um id disponível
+	  }
 
     public void add_vertex( int id ) {
         if ( this.vertex_set.get( id ) == null ) {
@@ -154,7 +161,7 @@ public class Graph {
     }
 
     public boolean is_connected() {
-        // fazer
+        // fazer: se direcionado ? encontrar o subjacente
         return false;
     }
 
@@ -184,7 +191,49 @@ public class Graph {
         }
     }
 
+    private void DFS_visit( Vertex v1 ) {
+      v1.d = ++time;
+      for( Vertex neig : v1.nbhood.values( ) ) {
+        if( neig.d == null ) {
+          neig.parent = v1;
+          DFS_visit( neig );
+        }
+        else if (neig.d < v1.d)
+          acyclic = false;
+          // encontrar os vértices que formam esse ciclo
+      }
+      v1.f = ++time;
+    }
+
+    public boolean is_acyclic( ) {
+      if( acyclic != null )
+        return acyclic;
+      DFS( );
+      return acyclic;
+    }
+
+    public void topological_sorting( ) {
+      if( ! is_acyclic( ) ) {
+        System.out.printf("\n\n O grafo contém ciclo!!");
+        return;
+      }
+      List<Vertex> ts_vertex_set = new ArrayList<Vertex>();
+      for ( Vertex v1 : vertex_set.values( ) )
+        ts_vertex_set.add( v1 );
+      Collections.sort( ts_vertex_set );
+      System.out.printf("\n\n Ordenação topológica \n");
+      for ( Vertex v1 : ts_vertex_set )
+        System.out.printf("\n id: " + v1.id + " f: " + v1.f );
+    }
+
     public void print() {
+      System.out.print("\n\n -------------------------------");
+      if( this.vertex_set.size() == 0 ) {
+  			System.out.printf("\n\n Conjunto de vértices vazio");
+  			System.out.print("\n\n -------------------------------");
+  			return;
+  		}
+
         System.out.printf("\n\n Grafo, grau máximo %d", this.max_degree());
 
         if( this.is_undirected() )
@@ -194,5 +243,6 @@ public class Graph {
 
         for( Vertex v : vertex_set.values())
             v.print();
+        System.out.print("\n\n -------------------------------");
     }
 }
