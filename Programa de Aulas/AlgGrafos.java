@@ -16,7 +16,7 @@ public class AlgGrafos {
         String line4 = "\n Escolha a opção: ";
         String menu = line1 + line2 + line3 + line4;
 
-        Graph g1 = new Digraph();
+        Digraph g1 = new Digraph();
 
         while( true ) {
             System.out.printf( menu );
