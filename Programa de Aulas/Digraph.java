@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Collections;
 
 public class Digraph implements Serializable {
-    private HashMap<Integer,Vertex> vertex_set;
+    protected HashMap<Integer,Vertex> vertex_set;
     private int time;
     private Boolean acyclic;
 
