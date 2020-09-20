@@ -68,7 +68,7 @@ public class AlgGrafos {
           					g1.compact( );
           					break;
                 case 10:
-    					      g1.DFS( );
+    					      g1.DFS( null );
     					      break;
                 case 11:
     					      List<Vertex> ts_vertex_set = g1.topological_sorting( );
