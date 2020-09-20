@@ -6,7 +6,7 @@ public class Vertex implements Serializable, Comparable<Vertex> {
     protected Integer id;
     protected HashMap<Integer,Vertex> nbhood;
     // parent: refere-se a qual busca?
-    protected Vertex parent;
+    protected Vertex parent, root;
     protected Integer dist, d, f;
 
     public Vertex ( int id ) {
