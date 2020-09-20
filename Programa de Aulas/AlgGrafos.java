@@ -31,14 +31,14 @@ public class AlgGrafos {
                     write( g1 );
                     break;
                 case 4:
-					// fazer
+					           // fazer
                     g1.add_vertex( 1 );
                     g1.add_vertex( 2 );
                     g1.add_vertex( 3 );
                     g1.add_vertex( 4 );
                     break;
                 case 5:
-					// fazer
+					           // fazer
                     g1.add_edge(1,2);
                     g1.add_edge(1,3);
 
@@ -46,12 +46,12 @@ public class AlgGrafos {
                     g1.add_arc(1,4);
                     break;
                 case 6:
-					System.out.print("Vértice a excluir: ");
-					int id = scan1.nextInt();
-					g1.del_vertex( id );
-					break;
+					           System.out.print("Vértice a excluir: ");
+					           int id = scan1.nextInt();
+					           g1.del_vertex( id );
+					           break;
                 case 7:
-					// fazer
+					           // fazer
                     g1.BFS( 4 );
                     break;
                 case 8:
@@ -59,8 +59,14 @@ public class AlgGrafos {
                     g2.print();
                     break;
                 case 9:
-					g1.compact();
-            }
+          					g1.compact( );
+          					break;
+                case 10:
+    					      g1.DFS( );
+    					      break;
+                case 11:
+    					       g1.topological_sorting( );
+              }
         }
     }
 
