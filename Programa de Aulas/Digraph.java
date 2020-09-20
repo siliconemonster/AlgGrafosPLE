@@ -236,16 +236,15 @@ public class Digraph implements Serializable {
       return acyclic;
     }
 
-    public void topological_sorting( ) {
+    public List<Vertex> topological_sorting( ) {
       if( ! is_acyclic( ) ) {
         System.out.printf("\n\n O grafo contém ciclo!!");
-        return;
+        return null;
       }
       List<Vertex> ts_vertex_set = new ArrayList<Vertex>();
       for ( Vertex v1 : vertex_set.values( ) )
         ts_vertex_set.add( v1 );
       Collections.sort( ts_vertex_set );
-      System.out.printf("\n\n Ordenação topológica \n");
       return ts_vertex_set;
     }
 
