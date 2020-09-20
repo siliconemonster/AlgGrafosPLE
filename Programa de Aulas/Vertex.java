@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.lang.Comparable;
 import java.util.HashMap;
 
 public class Vertex implements Serializable {
@@ -14,6 +15,13 @@ public class Vertex implements Serializable {
         parent = null;
         dist = null;
     }
+
+    @Override public int compareTo( Vertex otherVertex ) {
+  		if( otherVertex.f > this.f)
+  			return 1;
+  		else
+  			return -1;
+  	}
 
     public void add_neighbor( Vertex viz ) {
         nbhood.put(viz.id, viz);
@@ -33,6 +41,8 @@ public class Vertex implements Serializable {
         System.out.print("\nId do vértice " + id + ", Vizinhança: " );
         for( Vertex v : nbhood.values())
             System.out.print(" " + v.id );
+        if( d != null )
+    		    System.out.print(". d " + d + ", f " + f );
         if( parent != null)
             System.out.print(", pai " + parent.id + " distância " + dist );
         else if ( dist == null )
