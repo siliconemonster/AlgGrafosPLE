@@ -2,14 +2,15 @@ import java.io.Serializable;
 import java.lang.Comparable;
 import java.util.HashMap;
 
-public class Vertex implements Serializable {
+public class Vertex implements Serializable, Comparable<Vertex> {
     protected Integer id;
     protected HashMap<Integer,Vertex> nbhood;
+    // parent: refere-se a qual busca?
     protected Vertex parent;
-    protected Integer dist;
+    protected Integer dist, d, f;
 
     public Vertex ( int id ) {
-		// id >= 1
+		    // id >= 1
         this.id = id;
         nbhood = new HashMap<Integer,Vertex>();
         parent = null;
@@ -36,6 +37,14 @@ public class Vertex implements Serializable {
         this.parent = parent;
         this.dist = parent.dist + 1;
     }
+
+    protected Vertex get_root( ) {
+  		if( parent == null )
+  			root = this;
+  		else
+  			root = parent.get_root( );
+  		return root;
+  	}
 
     public void print() {
         System.out.print("\nId do vértice " + id + ", Vizinhança: " );
