@@ -7,14 +7,16 @@ public class Vertex implements Serializable, Comparable<Vertex> {
     protected HashMap<Integer,Vertex> nbhood;
     // parent: refere-se a qual busca?
     protected Vertex parent, root;
-    protected Integer dist, d, f;
+    protected Integer d, f;
+    // independent set if bipartite: 0, -1, or 1
+    protected int ind_set;
 
     public Vertex ( int id ) {
 		    // id >= 1
         this.id = id;
         nbhood = new HashMap<Integer,Vertex>();
-        parent = null;
-        dist = null;
+        //parent = null;
+        //dist = null;
     }
 
     @Override public int compareTo( Vertex otherVertex ) {
@@ -35,7 +37,7 @@ public class Vertex implements Serializable, Comparable<Vertex> {
 
     public void discover( Vertex parent ) {
         this.parent = parent;
-        this.dist = parent.dist + 1;
+        this.dist = parent.d + 1;
     }
 
     protected Vertex get_root( ) {
@@ -53,10 +55,10 @@ public class Vertex implements Serializable, Comparable<Vertex> {
         if( d != null )
     		    System.out.print(". d " + d + ", f " + f );
         if( parent != null)
-            System.out.print(", pai " + parent.id + " distância " + dist );
-        else if ( dist == null )
-            System.out.print(", não alcançável pela raiz");
+            System.out.print(". Pai " + parent.id + " distância " + d );
+        else if ( d == null )
+            System.out.print(". Não alcançável pela raiz");
         else
-            System.out.print(", raiz, distância" + dist);
+            System.out.print(". Raiz, distância" + dist);
     }
 }
