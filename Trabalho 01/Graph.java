@@ -49,4 +49,11 @@ public class Graph extends Digraph {
 		}
 		return true;
 	}
+
+  // Método do trabalho 1:
+  // Um grafo g é de distância hereditária se para qualquer subgrafo produzido dele,
+  // a distância entre dois vértices desse subgrafo é a mesma, no subgrafo e no grafo original.
+  public isDistanceHereditary(){
+
+  }
 }

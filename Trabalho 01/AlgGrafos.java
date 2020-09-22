@@ -83,8 +83,11 @@ public class AlgGrafos {
                 case 13:
     					      g1.CFC( );
                 case 14:
-    					       g1.is_bipartite( );
-    					            break;
+    					      g1.is_bipartite( );
+    					      break;
+                case 15:
+                    g1.isDistanceHereditary();
+                    break;
             }
         }
     }
