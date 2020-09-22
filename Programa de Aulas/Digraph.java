@@ -174,8 +174,8 @@ public class Digraph implements Serializable {
     public void BFS( Integer id_raiz ) {
         Vertex raiz = vertex_set.get( id_raiz ); //uma raiz local ao método
         // feito
-        raiz.dist = 0; //distancia inicial é zero pra qualquer outro vértices
-                       //porque ainda não começou a contar nada;
+        raiz.d = 0; //distancia inicial é zero pra qualquer outro vértices
+                    //porque ainda não começou a contar nada;
 
         Queue<Vertex> lista = new LinkedList<Vertex>();//cria uma lista
         lista.add( raiz ) ; //o primeiro a ser posto na fila (não sei por que ele chamou de lista)
@@ -184,7 +184,7 @@ public class Digraph implements Serializable {
 
         while ((atual = lista.poll()) != null) {
           for (Vertex viz : atual.nbhood.values() ){
-            if( viz.dist == null ){
+            if( viz.d == null ){
               viz.discover( atual );
               lista.add( viz );
             }

@@ -37,7 +37,7 @@ public class Vertex implements Serializable, Comparable<Vertex> {
 
     public void discover( Vertex parent ) {
         this.parent = parent;
-        this.dist = parent.d + 1;
+        this.d = parent.d + 1;
     }
 
     protected Vertex get_root( ) {
@@ -59,6 +59,6 @@ public class Vertex implements Serializable, Comparable<Vertex> {
         else if ( d == null )
             System.out.print(". Não alcançável pela raiz");
         else
-            System.out.print(". Raiz, distância" + dist);
+            System.out.print(". Raiz, distância" + d);
     }
 }
