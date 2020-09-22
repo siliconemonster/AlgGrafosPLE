@@ -13,7 +13,6 @@ public class Digraph implements Serializable {
 
     public Digraph() {
         vertex_set = new HashMap<Integer,Vertex>();
-        acyclic = null;
     }
 
     public void add_vertex( ) {
@@ -295,6 +294,13 @@ public class Digraph implements Serializable {
   					System.out.print(" " + v2.id );
   			}
   		}
+  	}
+
+    public boolean is_bipartite( ) {
+  		Graph g1 = this.subjacent( );
+  		if( ! g1.is_bipartite( ) )
+  			return false;
+  		return true;
   	}
 
     public void print() {
