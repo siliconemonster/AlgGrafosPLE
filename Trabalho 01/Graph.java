@@ -74,9 +74,9 @@ public class Graph extends Digraph {
   // * pode ser completamente decomposto em cliques e estrelas por uma decomposição "split";
   // * tem a mínima partição hierárquica (1);
   // * tem uma caracterização proibida. Nenhum subgrafo induzido pode ser uma "house" (grafo complementar de um grafo
-  // com caminho de 5 vértices), um "hole" (grafo de ciclo de 5 ou mais vértices), um domino" (grafo de 6 vértices
-  // mais uma aresta diagonal entre dois vértices opostos), ou uma "gem" (um ciclo de 5 vértices mais duas arestas
-  // diagonais que incidem no mesmo vértice).
+  // com caminho de 5 vértices), um "hole" (grafo de ciclo de 5 ou mais vértices), um domino" (grafo com ciclo de 6
+  // vértices mais uma aresta diagonal entre dois vértices opostos), ou uma "gem" (um ciclo de 5 vértices mais duas
+  // arestas diagonais que incidem no mesmo vértice).
   //
   // Fontes usadas para pesquisa:
   //    https://www.graphclasses.org/classes/gc_80.html
@@ -84,5 +84,35 @@ public class Graph extends Digraph {
   public boolean isDistanceHereditary(){
     //precisa cumprir os 8 requisitos acima
 
+    if (HouseHoleDominoGem()){
+      return false
+    }
+
+  }
+
+  //Checa se o grafo tem alguma dessas caracterizações proibidas.
+  //Ter uma delas já é o suficiente para o problema em questão.
+  private boolean HouseHoleDominoGem(){
+    //HOUSE = grafo complementar de um grafo com caminho de 5 vértices
+    if(){
+      return true;
+    }
+
+    //HOLE = grafo cíclico de 5 ou mais vértices
+    if (!acyclic() && vertex_set >= 5){
+      return true;
+    }
+
+    //DOMINO = grafo com ciclo de 6 vértices + aresta diagonal entre dois vértices opostos
+    if(!acyclic() && ){
+      return true;
+    }
+
+    //GEM = grafo com ciclo de 5 vértices +  2 arestas diagonais incidentes no mesmo vértice
+    if(!acyclic() && ){
+      return true;
+    }
+
+    return false;
   }
 }
