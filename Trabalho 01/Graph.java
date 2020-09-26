@@ -73,7 +73,7 @@ public class Graph extends Digraph {
   //          são chamados de "true twins";
   // * pode ser completamente decomposto em cliques e estrelas por uma decomposição "split";
   // * tem a mínima partição hierárquica (1);
-  // * temuma caracterização proibida. Nenhum subgrafo induzido pode ser uma "house" (grafo complementar de um grafo
+  // * tem uma caracterização proibida. Nenhum subgrafo induzido pode ser uma "house" (grafo complementar de um grafo
   // com caminho de 5 vértices), um "hole" (grafo de ciclo de 5 ou mais vértices), um domino" (grafo de 6 vértices
   // mais uma aresta diagonal entre dois vértices opostos), ou uma "gem" (um ciclo de 5 vértices mais duas arestas
   // diagonais que incidem no mesmo vértice).
@@ -82,6 +82,7 @@ public class Graph extends Digraph {
   //    https://www.graphclasses.org/classes/gc_80.html
   //    https://en.wikipedia.org/wiki/Distance-hereditary_graph#:~:text=In%20graph%20theory%2C%20a%20branch,distances%20of%20the%20larger%20graph.
   public boolean isDistanceHereditary(){
+    //precisa cumprir os 8 requisitos acima
 
   }
 }
