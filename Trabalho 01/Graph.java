@@ -75,7 +75,7 @@ public class Graph extends Digraph {
   //
 //They are the graphs that have rank-width one, where the rank-width of a graph is defined as the minimum, over all hierarchical partitions of the vertices of the graph, of the maximum rank among certain submatrices of the graph's adjacency matrix determined by the partition.[6]
 //They are the HHDG-free graphs, meaning that they have a forbidden graph characterization according to which no induced subgraph can be a house (the complement graph of a five-vertex path graph), hole (a cycle graph of five or more vertices), domino (six-vertex cycle plus a diagonal edge between two opposite vertices), or gem (five-vertex cycle plus two diagonals incident to the same vertex).
-  public isDistanceHereditary(){
+  public boolean isDistanceHereditary(){
 
   }
 }
