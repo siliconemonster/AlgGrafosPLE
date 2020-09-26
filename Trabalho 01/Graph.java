@@ -50,8 +50,6 @@ public class Graph extends Digraph {
 		return true;
 	}
 
-    GRAFO CORDAL
-
   // Método do trabalho 1:
   // Um grafo g é de distância hereditária se para qualquer subgrafo induzido dele,
   // a distância entre dois vértices desse subgrafo é a mesma, no subgrafo e no grafo original.
@@ -66,11 +64,13 @@ public class Graph extends Digraph {
   //          um grafo de ciclo de 5 vértices com uma corda, um grafo de ciclo de 5 vértices com duas
   //          cordas que não se cruzam, e um grafo de ciclo de 6 vértices com uma corda conectando vértices
   //          opostos;
-  //  * pode ser construído
-//  They are the graphs that can be built up from a single vertex by a sequence of the following three operations, as shown in the illustration:
-//Add a new pendant vertex connected by a single edge to an existing vertex of the graph.
-//Replace any vertex of the graph by a pair of vertices, each of which has the same set of neighbors as the replaced vertex. The new pair of vertices are called false twins of each other.
-//Replace any vertex of the graph by a pair of vertices, each of which has as its neighbors the neighbors of the replaced vertex together with the other vertex of the pair. The new pair of vertices are called true twins of each other.
+  //  * pode ser construído de um único vértice com uma sequência das três operações:
+  //          1 - Adicionar um novo vértice conectado por uma aresta a um vértice existente do grafo,
+  //          2 - Substituir qualquer vértice do grafo por um par de vértices, onde cada um deles tem os mesmos
+  //          vizinhos que o vértice substituído. Esses novos vértices são chamados de "false twins",
+  //          3 - Substituir qualquer vértice do grafo por um par de vértices, onde cada um deles tem os mesmos
+  //          vizinhos não apenas que o vértice substituído, mas também que o outro vértice do par. Esses vértices
+  //          são chamados de "true twins";
   // * pode ser completamente decomposto em cliques e estrelas por uma decomposição "split";
   //
 //They are the graphs that have rank-width one, where the rank-width of a graph is defined as the minimum, over all hierarchical partitions of the vertices of the graph, of the maximum rank among certain submatrices of the graph's adjacency matrix determined by the partition.[6]
