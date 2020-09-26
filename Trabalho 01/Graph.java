@@ -72,9 +72,11 @@ public class Graph extends Digraph {
   //          vizinhos não apenas que o vértice substituído, mas também que o outro vértice do par. Esses vértices
   //          são chamados de "true twins";
   // * pode ser completamente decomposto em cliques e estrelas por uma decomposição "split";
-  //
-//They are the graphs that have rank-width one, where the rank-width of a graph is defined as the minimum, over all hierarchical partitions of the vertices of the graph, of the maximum rank among certain submatrices of the graph's adjacency matrix determined by the partition.[6]
-//They are the HHDG-free graphs, meaning that they have a forbidden graph characterization according to which no induced subgraph can be a house (the complement graph of a five-vertex path graph), hole (a cycle graph of five or more vertices), domino (six-vertex cycle plus a diagonal edge between two opposite vertices), or gem (five-vertex cycle plus two diagonals incident to the same vertex).
+  // * tem a mínima partição hierárquica (1);
+  // * temuma caracterização proibida. Nenhum subgrafo induzido pode ser uma "house" (grafo complementar de um grafo
+  // com caminho de 5 vértices), um "hole" (grafo de ciclo de 5 ou mais vértices), um domino" (grafo de 6 vértices
+  // mais uma aresta diagonal entre dois vértices opostos), ou uma "gem" (um ciclo de 5 vértices mais duas arestas
+  // diagonais que incidem no mesmo vértice).
   public boolean isDistanceHereditary(){
 
   }
