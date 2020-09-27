@@ -84,11 +84,11 @@ public class Graph extends Digraph {
   //    https://core.ac.uk/download/pdf/82240981.pdf
   public boolean isDistanceHereditary(){
     //precisa cumprir os 8 requisitos acima
-    if(!MenorCaminhoOuAresta()){
+    if(!MenorCaminhoOuAresta() ?????????? ){
       return false;
     }
 
-    if(!acyclic() &&){
+    if(!acyclic() && ??????????){
       return false;
     }
 
@@ -134,12 +134,12 @@ public class Graph extends Digraph {
     }
 
     //DOMINO = grafo com ciclo de 6 vértices + aresta diagonal entre dois vértices opostos
-    if(!acyclic() && ){
+    if(!acyclic() && ??????????){
       return true;
     }
 
     //GEM = grafo com ciclo de 5 vértices +  2 arestas diagonais incidentes no mesmo vértice
-    if(!acyclic() && ){
+    if(!acyclic() && ??????????){
       return true;
     }
 
