@@ -51,7 +51,7 @@ public class Graph extends Digraph {
 	}
 
   // Método do trabalho 1:
-  // Um grafo g é de distância hereditária se para qualquer subgrafo induzido dele,
+  // Um grafo g é de distância hereditária se é conexo e, para qualquer subgrafo induzido dele,
   // a distância entre dois vértices desse subgrafo é a mesma, no subgrafo e no grafo original.
   //
   // Para um grafo ser de distância hereditária:
@@ -84,40 +84,44 @@ public class Graph extends Digraph {
   //    https://core.ac.uk/download/pdf/82240981.pdf
   public boolean isDistanceHereditary(){
     //precisa cumprir os 8 requisitos acima
-    if(!MenorCaminhoOuAresta() ?????????? ){
-      return false;
-    }
+    if (is_connected()){
 
-    if(!acyclic() && ??????????){
-      return false;
-    }
+      if(!MenorCaminhoOuAresta() ?????????? ){
+        return false;
+      }
 
-    if(){
-      return false;
-    }
+      if(!acyclic() && ??????????){
+        return false;
+      }
 
-    if(){
-      return false;
-    }
+      if(){
+        return false;
+      }
 
-    if(){
-      return false;
-    }
+      if(){
+        return false;
+      }
 
-    //clique star
-    if(){
-      return false;
-    }
+      if(){
+        return false;
+      }
 
-    if(){
-      return false;
-    }
+      //clique star
+      if(){
+        return false;
+      }
 
-    if (HHDG()){
-      return false;
-    }
+      if(){
+        return false;
+      }
 
-    return true;
+      if (HHDG()){
+        return false;
+      }
+
+      return true;
+    }
+    return false;
   }
 
   //Checa se o grafo tem alguma dessas caracterizações proibidas.
