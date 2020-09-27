@@ -80,19 +80,49 @@ public class Graph extends Digraph {
   //
   // Fontes usadas para pesquisa:
   //    https://www.graphclasses.org/classes/gc_80.html
-  //    https://en.wikipedia.org/wiki/Distance-hereditary_graph#:~:text=In%20graph%20theory%2C%20a%20branch,distances%20of%20the%20larger%20graph.
+  //    https://en.wikipedia.org/wiki/Distance-hereditary_graph
+  //    https://core.ac.uk/download/pdf/82240981.pdf
   public boolean isDistanceHereditary(){
     //precisa cumprir os 8 requisitos acima
-
-    if (HouseHoleDominoGem()){
-      return false
+    if(!MenorCaminhoOuAresta()){
+      return false;
     }
 
+    if(!acyclic() &&){
+      return false;
+    }
+
+    if(){
+      return false;
+    }
+
+    if(){
+      return false;
+    }
+
+    if(){
+      return false;
+    }
+
+    //clique star
+    if(){
+      return false;
+    }
+
+    if(){
+      return false;
+    }
+
+    if (HHDG()){
+      return false;
+    }
+
+    return true;
   }
 
   //Checa se o grafo tem alguma dessas caracterizações proibidas.
   //Ter uma delas já é o suficiente para o problema em questão.
-  private boolean HouseHoleDominoGem(){
+  private boolean HHDG(){
     //HOUSE = grafo complementar de um grafo com caminho de 5 vértices
     if(){
       return true;
