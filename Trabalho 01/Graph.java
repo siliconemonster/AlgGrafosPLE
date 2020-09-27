@@ -128,7 +128,7 @@ public class Graph extends Digraph {
       return true;
     }
 
-    //HOLE = grafo cíclico de 5 ou mais vértices
+    //HOLE = grafo cíclico de 5 ou mais vértices ?????????
     if (!acyclic() && vertex_set.size >= 5){
       return true;
     }
