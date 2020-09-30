@@ -54,7 +54,39 @@ public class Graph extends Digraph {
   // Um grafo g é de distância hereditária se é conexo e, para qualquer subgrafo induzido dele,
   // a distância entre dois vértices desse subgrafo é a mesma, no subgrafo e no grafo original.
   //
-  // Para um grafo ser de distância hereditária:
+  // A ideia do algoritmo:
+  // Conseguir encontrar todos os subgrafos induzidos desse grafo e comparar todas as distâncias.
+  // Inicialmente fazer uma BFS/DFS no grafo original para poder guardar as distâncias de cada vértice
+  //
+
+
+  public void isDistanceHereditary(){
+
+    //fazer bfs ou dfs do grafo original
+    lizard(, 0);
+    link();
+    //fazer bfs ou dfs de cada subgrafo
+    //comparar distâncias
+
+  }
+
+  private void lizard(ArrayList<Vertex> vSet, int ind){
+    if ind == vertices.size() {
+      System.out.print();
+      return;
+    }
+
+    lizard(vSet, ind+1);
+    ArrayList<Vertex> newVset = vSet + vertices[ind];
+    lizard(newVset, ind+1);
+  }
+
+  private void link(){
+    //juntar as arestas e gerar cada subgrafo
+  }
+
+
+/*  // Para um grafo ser de distância hereditária:
   // * todo caminho é ou o menor deles, ou ele precisa ter pelo menos uma aresta conectando dois
   // vértices cujo caminho é não consecutivo;
   // * todo ciclo de tamanho 5 ou maior tem pelo menos duas diagonais que se cruzam;
@@ -149,4 +181,4 @@ public class Graph extends Digraph {
 
     return false;
   }
-}
+}*/
