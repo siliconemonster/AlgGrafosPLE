@@ -62,23 +62,23 @@ public class Graph extends Digraph {
 
   public void isDistanceHereditary(){
 
-    //fazer bfs ou dfs do grafo original
-    lizard(, 0);
+    //fazer bfs ou dfs do grafo original para descobrir as distâncias
+    enumerate(, 0);
     link();
     //fazer bfs ou dfs de cada subgrafo
     //comparar distâncias
 
   }
 
-  private void lizard(ArrayList<Vertex> vSet, int ind){
-    if ind == vertices.size() {
+  private void enumerate(ArrayList<Vertex> vSet, int ind){
+    if ind == vertex_set.size() {
       System.out.print();
       return;
     }
 
-    lizard(vSet, ind+1);
-    ArrayList<Vertex> newVset = vSet + vertices[ind];
-    lizard(newVset, ind+1);
+    enumerate(vSet, ind+1);
+    ArrayList<Vertex> newVset = vSet + vertex_set[ind];
+    enumerate(newVset, ind+1);
   }
 
   private void link(){
