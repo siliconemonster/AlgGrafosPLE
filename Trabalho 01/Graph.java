@@ -10,9 +10,11 @@ import java.util.Stack;
 public class Graph extends Digraph {
 
     private Stack<Vertex> st1;
+    //private ArrayList<ArrayList<Vertex>> conjSubgrafos; //lista de conjuntos de partes de subgrafos
 
     public Graph() {
-    st1 = new Stack<Vertex>( );
+    	st1 = new Stack<Vertex>();
+    	//conjSubgrafos = new ArrayList<ArrayList<Vertex>>();
     }
 
     @Override public void add_arc( Integer id1, Integer id2) {
@@ -58,16 +60,40 @@ public class Graph extends Digraph {
   // Conseguir encontrar todos os subgrafos induzidos desse grafo e comparar todas as distâncias.
   // Inicialmente fazer uma BFS/DFS no grafo original para poder guardar as distâncias de cada vértice
   //
+	/*
 
+        1   2   3   7
+    1[  0   1   1   0  ]
+    2[  1   0   0   0  ]
+    3[  1   0   0   0  ]
+    7[  0   0   0   0  ]
 
+    1 -> 2, 3
+    2 -> 1
+    3 -> 1
+    7 ->
+
+    Matriz[2][1]
+
+    */
   public void isDistanceHereditary(){
+  	ArrayList<Graph> subgrafos;
 
-    //fazer bfs ou dfs do grafo original para descobrir as distâncias
+    distGrafo(); //fazer bfs ou dfs do grafo original para descobrir as distâncias
     enumerate(, 0);
-    link();
-    //fazer bfs ou dfs de cada subgrafo
-    //comparar distâncias
+    subgrafos = link();
+    removeSubgrafo(subgrafos);//se o subgrafo for desconexo, sai do conjunto
+    //fazer bfs ou dfs de cada subgrafo          <1,2,1> <1,3,2>...<7,1,1>
+    comparaDistancia(); // comparar distâncias
 
+  }
+
+  private void distGrafo(){
+  	ArrayList<HashMap<Integer, Integer>> distancia; //talvez não possa ser um arraylist
+  	for(i = 0; i <= vertex_set.size; i++){
+  		distancia[i] = BFS(i);
+	}
+  	return distancia;
   }
 
   private void enumerate(ArrayList<Vertex> vSet, int ind){
@@ -81,8 +107,40 @@ public class Graph extends Digraph {
     enumerate(newVset, ind+1);
   }
 
+	ArrayList<Pair<vertice,vertice>> listaAdjacencias;
   private void link(){
     //juntar as arestas e gerar cada subgrafo
+	  ArrayList<Graph> subgrafos;
+	 for (passar por cada lista de vertices ){ //linha incompleta
+	 	Graph newSubgraph = new Graph();
+	 	for(para cada vertice ){ //linha incompleta
+	 		newSubgraph.add_vertex(vertice.i);
+		}
+		for (tamanho da lista) {
+			  if (vertice do grafo esta no subgrafo){  //linha incompleta
+				  aresta do vertice do subgrafo = newSubgraph.add_edge(); //linha incompleta
+			  }
+			  //outra ideia
+			  if (na lista de adjacencias checar se o par está no subgrafo){ //linha incompleta
+				aresta do vertice do subgrafo = newSubgraph.add_edge(); //linha incompleta
+			}
+		}
+	 }
+  }
+  private void removeSubgrafo(ArrayList<Graph> subgrafos){
+  	for(i = 0; i <= subgrafos.size; i++){
+  		if(!subgrafos[i].is_Connected){
+  			remove do conjunto //linha incompleta
+		}
+	}
+  }
+  comparaDistancia(){
+  	//
+	  for(i = 0; i >= subgrafos.size; i++){
+		  if(g1.d == subgrafo[i].d){
+
+		  }
+	  }
   }
 
 
@@ -180,5 +238,5 @@ public class Graph extends Digraph {
     }
 
     return false;
-  }
-}*/
+  }*/
+}

@@ -171,7 +171,8 @@ public class Digraph implements Serializable {
 		  return -1;
 	  }
 
-    public void BFS( Integer id_raiz ) {
+    public HashMap<Integer, Integer> BFS( Integer id_raiz ) {
+        HashMap<Integer, Integer> distancias = new HashMap<Integer, Integer>();
         Vertex raiz = vertex_set.get( id_raiz ); //uma raiz local ao método
         // feito
         raiz.d = 0; //distancia inicial é zero pra qualquer outro vértices
@@ -187,9 +188,11 @@ public class Digraph implements Serializable {
             if( viz.d == null ){
               viz.discover( atual );
               lista.add( viz );
+              distancias.put(viz.id, viz.d);
             }
           }
         }
+        return distancias;
     }
 
     public void DFS( List<Vertex> ordering ) {
