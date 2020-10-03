@@ -52,6 +52,55 @@ public class Graph extends Digraph {
 		return true;
 	}
 
+  public void bicon_comp( ) {
+    // falta testar a raiz
+    time = 0;
+    for( Vertex v1 : vertex_set.values( ) )
+      if( v1.d == null )
+        bicon_comp_visit( v1 );
+  }
+
+  private void bicon_comp_visit( Vertex v1 ) {
+    v1.d = ++time;
+    v1.low = v1.d;
+    for( Vertex neig : v1.nbhood.values( ) ) {
+      if( neig.d == null ) {
+        st1.push( v1 );
+        st1.push( neig );
+        neig.parent = v1;
+        bicon_comp_visit( neig );
+        if( neig.low >= v1.d )
+          this.desempilha( v1, neig );
+        if( neig.low < v1.low )
+          v1.low = neig.low;
+      }
+      else if( neig != v1.parent ) {
+        if( neig.d < v1.d ) {
+          st1.push( v1 );
+          st1.push( neig );
+        }
+      }
+    }
+  }
+
+  private void desempilha( Vertex cut_vertex, Vertex aux ) {
+    if( st1.empty( ) )
+      return;
+    System.out.println( "\n Bloco: " );
+    Vertex v1 = this.st1.pop( );
+    Vertex v2 = this.st1.pop( );
+    System.out.println( v1.id );
+    System.out.print( v2.id );
+    while( v1 != cut_vertex || v2 != aux ) {
+      if( st1.empty( ) )
+        return;
+      v1 = this.st1.pop( );
+      v2 = this.st1.pop( );
+      System.out.println( v1.id );
+      System.out.print( v2.id );
+    }
+  }
+
   // Método do trabalho 1:
   // Um grafo g é de distância hereditária se é conexo e, para qualquer subgrafo induzido dele,
   // a distância entre dois vértices desse subgrafo é a mesma, no subgrafo e no grafo original.
