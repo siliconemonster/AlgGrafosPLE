@@ -125,7 +125,7 @@ public class Graph extends Digraph {
     Matriz[2][1]
 
     */
-  public void isDistanceHereditary(){
+  /*public void isDistanceHereditary(){
   	ArrayList<Graph> subgrafos;
 
     distGrafo(); //fazer bfs ou dfs do grafo original para descobrir as distâncias

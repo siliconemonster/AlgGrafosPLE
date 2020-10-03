@@ -8,10 +8,11 @@ import java.util.Collections;
 
 public class Digraph implements Serializable {
     protected HashMap<Integer,Vertex> vertex_set;
-    private int time;
+    protected int time;
     private Boolean acyclic;
 
     public Digraph() {
+
         vertex_set = new HashMap<Integer,Vertex>();
     }
 
@@ -24,8 +25,6 @@ public class Digraph implements Serializable {
             Vertex v = new Vertex( id );
             vertex_set.put( v.id, v );
         }
-        else
-            System.out.printf("Já existe vértice com esse número");
     }
 
     public void add_arc( Integer id1, Integer id2) {
@@ -123,14 +122,11 @@ public class Digraph implements Serializable {
     }*/
 
       //---------- parte do professor ----------
-      int max = -1;
-
-      //vertex_set.size() = quantidade de vértices
-      for(int i = 1; i <= vertex_set.size(); i++){
-        if (vertex_set.get(i).degree() > max){
-          max = vertex_set.get(i).degree();
+        int max = -1;
+        for( Vertex v1 : vertex_set.values() ) {
+            if( v1.degree() > max )
+                max = v1.degree();
         }
-      }
       return max;
     }
 
@@ -218,6 +214,7 @@ public class Digraph implements Serializable {
   			ordering.addAll( vertex_set.values( ) );
   		}
   		acyclic = true;
+        time = 0;
   		for( Vertex v1 : vertex_set.values() )
   			v1.parent = null;
   		time = 0;
