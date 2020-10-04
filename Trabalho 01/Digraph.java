@@ -176,7 +176,13 @@ public class Digraph implements Serializable {
 
     public boolean is_connected() {
         // fazer: se direcionado ? encontrar o subjacente
-        return false;
+        this.DFS(null);
+        for(Vertex vertice : vertex_set.values()){
+            if(vertice.parent == null){
+                return false;
+            }
+        }
+        return true;
     }
 
     public int count_components() {

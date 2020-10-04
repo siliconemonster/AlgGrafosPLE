@@ -136,12 +136,18 @@ public class Graph extends Digraph {
   public boolean isDistanceHereditary(){  //TEORICAMENTE tudo certo
   	ArrayList<Graph> subgrafos;
   	ArrayList<ArrayList<Vertex>> conjPartes = new ArrayList<ArrayList<Vertex>>();
+  	boolean distHereditaria;
 
   	//lista de distâncias: contém as distâncias de cada vértice de cada grafo (tal grafo, tal raiz, tal vértice, tal distância)
   	ArrayList<HashMap<Integer, HashMap<Integer, Integer>>> distancias = new ArrayList<>();
 
+  	if(!this.is_connected()){
+  	    System.out.print("O grafo inserido não é conexo.\nUm grafo de distância hereditária precisa ser conexo.\n");
+  	    return false;
+    }
+
     distancias.add(distGrafo(this)); //fazer bfs do grafo original para descobrir as distâncias. A posição 0 é do grafo original
-    conjPartes = enumerate(conjPartes, , 0); // encontra todos os conjuntos de partes possíveis
+    enumerate(conjPartes, new ArrayList<Vertex>(), 0); // encontra todos os conjuntos de partes possíveis
     subgrafos = link(conjPartes); //liga os conjuntos de partes e as arestas
     removeSubgrafo(subgrafos);//se o subgrafo for desconexo, sai do conjunto
 
@@ -149,31 +155,33 @@ public class Graph extends Digraph {
       for (int i = 0; i <= subgrafos.size(); i++){ //laço para cada subgrafo do conjunto
           distancias.add(distGrafo(subgrafos.get(i)));
       }
-    comparaDistancia(distancias); // comparar distâncias entre os subgrafos e o grafo original
+    distHereditaria = comparaDistancia(subgrafos, distancias); // comparar distâncias entre os subgrafos e o grafo original
 
 
-      return disHereditaria;
+      return distHereditaria;
   }
 
   private HashMap<Integer, HashMap<Integer, Integer>> distGrafo(Graph grafo){  //TEORICAMENTE tudo certo
       //para cada raiz, a distância de cada vértice
-  	HashMap<Integer, HashMap<Integer, Integer>> distancia = new HashMap<>(); //talvez não possa ser um arraylist
+  	HashMap<Integer, HashMap<Integer, Integer>> distancia = new HashMap<>();
   	for(int i = 0; i <= grafo.vertex_set.size(); i++){
-  		distancia.put(i, BFS(i));
+  		distancia.put(i, BFS(i)); //calcula a distância de cada raiz utilizando a BFS
 	}
   	return distancia;
   }
 
+  //método recursivo para encontrar todos os conjuntos possíveis de vertíces dos futuros subgrafos
   private void enumerate(ArrayList<ArrayList<Vertex>> conjPartes, ArrayList<Vertex> vSet, int ind){
-    if (ind == vertex_set.size()){
+    if (ind == this.vertex_set.size()){ //se o índice for o último
       System.out.print(vSet);
-      conjPartes.put(vSet); //paramos aqui
+      conjPartes.add(vSet); //adiciona ao conjunto de partes do futuro subgrafo
       return;
     }
 
-    enumerate(conjPartes, vSet, ind+1);
-    ArrayList<Vertex> newVset = vSet + vertex_set[ind];
-    enumerate(conjPartes, newVset, ind+1);
+    enumerate(conjPartes, vSet, ind+1); //chama novamente o método
+    ArrayList<Vertex> newVset = new ArrayList<>(vSet); // quando o método rodar pela primeira vez em cada índice (até, na recursão, conseguir entrar no if a primeira vez), vSet estará vazio o tempo todo
+    newVset.add(this.vertex_set.get(ind)); //adicionando o vértice de índice ind no novo conjunto (o novo conjunto pegará o vSet original e adicionará novos elementos (?)
+    enumerate(conjPartes, newVset, ind+1); //chama novamente o método, mas dessa vez com o novo conjunto
   }
 
   private ArrayList<Graph> link(ArrayList<ArrayList<Vertex>> conjPartes){ //TEORICAMENTE tudo certo
@@ -207,7 +215,7 @@ public class Graph extends Digraph {
           subgrafos.remove(indice); //remove cada subgrafo não conexo
       }
   }
-  private void comparaDistancia(ArrayList<HashMap<Integer, HashMap<Integer, Integer>>> distanciaGeral){
+  private boolean comparaDistancia(ArrayList<Graph> subgrafos, ArrayList<HashMap<Integer, HashMap<Integer, Integer>>> distanciaGeral){ //TEORICAMENTE tudo certo
   	//
       HashMap<Integer, HashMap<Integer, Integer>> distanciasOrig = distanciaGeral.get(0); //uma variável para salvar a distância de cada vértice a cada raiz do grafo original
 
@@ -224,9 +232,14 @@ public class Graph extends Digraph {
                   }
                   if(!distRaiz.getValue().equals(distanciasSubgrafo.get(distVertices.getKey()).get(distRaiz.getKey()))){ //compara se o valor da distância é igual
                       //NÃO É DE DISTANCIA HEREDITÁRIA
+                      System.out.print("\n O grafo não é de Distância Hereditária:\n");
+                      subgrafos.get(i-1).print();
+                      return false;
                   }
               }
           }
       }
+      System.out.print("\n O grafo é de Distância Hereditária");
+      return true;
   }
 }
