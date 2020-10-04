@@ -57,9 +57,9 @@ public class Vertex implements Serializable, Comparable<Vertex> {
     		    System.out.print(". d " + d + ", f " + f );
         if( parent != null)
             System.out.print(". Pai " + parent.id + " distância " + d );
-        else if ( d == null )
+        /*else if ( d == null )
             System.out.print(". Não alcançável pela raiz");
         else
-            System.out.print(". Raiz.");
+            System.out.print(". Raiz.");*/
     }
 }

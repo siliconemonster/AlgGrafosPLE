@@ -18,7 +18,7 @@ public class FileGraph {
 			    dg1.add_vertex( v1 );
 			    for( int i = 2; i < pieces.length; i++ ) {
    					int v2 = Integer.parseInt( pieces[ i ] );
-					dg1.add_edge( v1, v2 );
+					dg1.add_arc1( v1, v2 );
 				}				    
 		    }       
 		} catch(Exception e) {

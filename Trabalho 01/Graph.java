@@ -128,16 +128,16 @@ public class Graph extends Digraph {
 
 
 
-  /*public boolean isDistanceHereditary(){  //TEORICAMENTE tudo certo
+  public boolean isDistanceHereditary(){  //TEORICAMENTE tudo certo
   	ArrayList<Graph> subgrafos;
-  	ArrayList<ArrayList<Vertex>> conjPares;
+  	ArrayList<ArrayList<Vertex>> conjPartes = new ArrayList<ArrayList<Vertex>>();
 
   	//lista de distâncias: contém as distâncias de cada vértice de cada grafo (tal grafo, tal raiz, tal vértice, tal distância)
   	ArrayList<ArrayList<HashMap<Integer, Integer>>> distâncias;
 
     distancias[0] = distGrafo(); //fazer bfs do grafo original para descobrir as distâncias. A posição 0 é do grafo original
-    conjPares = enumerate(, 0); // encontra todos os conjuntos de partes possíveis
-    subgrafos = link(conjPares); //liga os conjuntos de partes e as arestas
+    conjPartes = enumerate(conjPartes, , 0); // encontra todos os conjuntos de partes possíveis
+    subgrafos = link(conjPartes); //liga os conjuntos de partes e as arestas
     subgrafos = removeSubgrafo(subgrafos);//se o subgrafo for desconexo, sai do conjunto
 
     //fazer bfs de cada subgrafo
@@ -161,9 +161,10 @@ public class Graph extends Digraph {
   	return distancia;
   }
 
-  private void enumerate(ArrayList<Vertex> vSet, int ind){
-    if ind == vertex_set.size() {
-      System.out.print();
+  private void enumerate(ArrayList<ArrayList<Vertex>> conjPartes, ArrayList<Vertex> vSet, int ind){
+    if (ind == vertex_set.size()){
+      System.out.print(vSet);
+      conjPartes.put(vSet); //paramos aqui
       return;
     }
 
@@ -183,11 +184,11 @@ public class Graph extends Digraph {
 		}
 		for (tamanho da lista) {
 			  if (vertice do grafo esta no subgrafo){  //linha incompleta
-				  aresta do vertice do subgrafo = newSubgraph.add_edge(); //linha incompleta
+				  aresta do vertice do subgrafo = newSubgraph.add_arc1(); //linha incompleta
 			  }
 			  //outra ideia
 			  if (na lista de adjacencias checar se o par está no subgrafo){ //linha incompleta
-				aresta do vertice do subgrafo = newSubgraph.add_edge(); //linha incompleta
+				aresta do vertice do subgrafo = newSubgraph.add_arc1(); //linha incompleta
 			}
 		}
 	 }
