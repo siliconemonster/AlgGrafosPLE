@@ -7,7 +7,7 @@ public class Vertex implements Serializable, Comparable<Vertex> {
     protected HashMap<Integer,Vertex> nbhood;
     // parent: refere-se a qual busca?
     protected Vertex parent, root;
-    protected Integer d, f;
+    protected Integer d, f, low;
     // independent set if bipartite: 0, -1, or 1
     protected int ind_set;
 
@@ -59,6 +59,6 @@ public class Vertex implements Serializable, Comparable<Vertex> {
         else if ( d == null )
             System.out.print(". Não alcançável pela raiz");
         else
-            System.out.print(". Raiz, distância" + d);
+            System.out.print(". Raiz.");
     }
 }

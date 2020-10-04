@@ -13,7 +13,7 @@ public class AlgGrafos {
         String line1 = "\n\n 0 Sair \n 1 Print \n 2 Ler de arquivo \n 3 Escrever em arquivo \n 4 Adicionar vértice";
         String line2 = "\n 5 Adicionar aresta \n 6 Excluir vértice \n 7 BFS \n 8 Subjacente \n 9 Compactar";
         String line3 = "\n 10 DFS \n 11 Ordenação topológica \n 12 Reverter arcos \n 13 CFC";
-        String line4 = "\n 14 Bipartido \n Escolha a opção: ";
+        String line4 = "\n 14 Bipartido \n 15 Comp. biconexas \n 16 Entrada arquivo texto \n Escolha a opção: ";
         String menu = line1 + line2 + line3 + line4;
 
         Digraph g1 = new Digraph();
@@ -85,6 +85,13 @@ public class AlgGrafos {
                 case 14:
     					       g1.is_bipartite( );
     					            break;
+                case 15:
+          					g2 = dg1.subjacent( );
+          					g2.bicon_comp( );
+          					break;
+                case 16:
+          					FileGraph fg1 = new FileGraph( );
+          					dg1 = fg1.open_text( );
             }
         }
     }
