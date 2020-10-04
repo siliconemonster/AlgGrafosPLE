@@ -165,7 +165,7 @@ public class Graph extends Digraph {
   private HashMap<Integer, HashMap<Integer, Integer>> distGrafo(Graph grafo){  //TEORICAMENTE tudo certo
       //para cada raiz, a distância de cada vértice
   	HashMap<Integer, HashMap<Integer, Integer>> distancia = new HashMap<>();
-  	for(int i = 0; i <= grafo.vertex_set.size(); i++){
+  	for(int i : grafo.vertex_set.keySet()){
   		distancia.put(i, BFS(i)); //calcula a distância de cada raiz utilizando a BFS
 	}
   	return distancia;
@@ -174,7 +174,11 @@ public class Graph extends Digraph {
   //método recursivo para encontrar todos os conjuntos possíveis de vertíces dos futuros subgrafos
   private void enumerate(ArrayList<ArrayList<Vertex>> conjPartes, ArrayList<Vertex> vSet, int ind){
     if (ind == this.vertex_set.size()){ //se o índice for o último
-      System.out.print(vSet);
+        System.out.print("[");
+        for(Vertex v : vSet){
+            System.out.print(v.id + " ");
+        }
+        System.out.println("]");
       conjPartes.add(vSet); //adiciona ao conjunto de partes do futuro subgrafo
       return;
     }
