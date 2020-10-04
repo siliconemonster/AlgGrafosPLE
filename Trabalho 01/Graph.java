@@ -125,19 +125,35 @@ public class Graph extends Digraph {
     Matriz[2][1]
 
     */
-  /*public void isDistanceHereditary(){
+
+
+
+  /*public boolean isDistanceHereditary(){  //TEORICAMENTE tudo certo
   	ArrayList<Graph> subgrafos;
+  	ArrayList<ArrayList<Vertex>> conjPares;
 
-    distGrafo(); //fazer bfs ou dfs do grafo original para descobrir as distâncias
-    enumerate(, 0);
-    subgrafos = link();
-    removeSubgrafo(subgrafos);//se o subgrafo for desconexo, sai do conjunto
-    //fazer bfs ou dfs de cada subgrafo          <1,2,1> <1,3,2>...<7,1,1>
-    comparaDistancia(); // comparar distâncias
+  	//lista de distâncias: contém as distâncias de cada vértice de cada grafo (tal grafo, tal raiz, tal vértice, tal distância)
+  	ArrayList<ArrayList<HashMap<Integer, Integer>>> distâncias;
 
+    distancias[0] = distGrafo(); //fazer bfs do grafo original para descobrir as distâncias. A posição 0 é do grafo original
+    conjPares = enumerate(, 0); // encontra todos os conjuntos de partes possíveis
+    subgrafos = link(conjPares); //liga os conjuntos de partes e as arestas
+    subgrafos = removeSubgrafo(subgrafos);//se o subgrafo for desconexo, sai do conjunto
+
+    //fazer bfs de cada subgrafo
+      for (int i = 0; i <= subgrafos.size(); i++){ //laço para cada subgrafo do conjunto
+          for (int j = 0; i<= subgrafos.vertex_set.size(); i++){ //laço para cada vértice do conjunto ser a raiz da busca
+              distancias[j+1] = BFS(j); //a primeira distância é a do grafo original
+          }
+      }
+    comparaDistancia(distancias); // comparar distâncias entre os subgrafos e o grafo original
+
+
+      return disHereditaria;
   }
 
-  private void distGrafo(){
+  private void distGrafo(){  //TEORICAMENTE tudo certo
+      //para cada raiz, a distância de cada vértice
   	ArrayList<HashMap<Integer, Integer>> distancia; //talvez não possa ser um arraylist
   	for(i = 0; i <= vertex_set.size; i++){
   		distancia[i] = BFS(i);
@@ -156,11 +172,11 @@ public class Graph extends Digraph {
     enumerate(newVset, ind+1);
   }
 
-	ArrayList<Pair<vertice,vertice>> listaAdjacencias;
+  ArrayList<Pair<vertice,vertice>> listaAdjacencias; //um vétice é ligado no outro vértice por exemplo [(1, 2), (1, 3), (2, 3), (3, 7)]
   private void link(){
     //juntar as arestas e gerar cada subgrafo
 	  ArrayList<Graph> subgrafos;
-	 for (passar por cada lista de vertices ){ //linha incompleta
+	 for (passar por cada lista de vertices ){ //passar por cada conjunto de partes
 	 	Graph newSubgraph = new Graph();
 	 	for(para cada vertice ){ //linha incompleta
 	 		newSubgraph.add_vertex(vertice.i);

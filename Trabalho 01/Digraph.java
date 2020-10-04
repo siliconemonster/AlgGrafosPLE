@@ -185,6 +185,7 @@ public class Digraph implements Serializable {
 	  }
 
     public HashMap<Integer, Integer> BFS( Integer id_raiz ) {
+        //Hashmap que salva a distância de cada vértice à raiz
         HashMap<Integer, Integer> distancias = new HashMap<Integer, Integer>();
         Vertex raiz = vertex_set.get( id_raiz ); //uma raiz local ao método
         // feito
@@ -201,11 +202,11 @@ public class Digraph implements Serializable {
             if( viz.d == null ){
               viz.discover( atual );
               lista.add( viz );
-              distancias.put(viz.id, viz.d);
+              distancias.put(viz.id, viz.d); //ID do vizinho da raiz, distância
             }
           }
         }
-        return distancias;
+        return distancias; // retorna o hashmap que contém a distância de cada vértice à raiz
     }
 
     public void DFS( List<Vertex> ordering ) {

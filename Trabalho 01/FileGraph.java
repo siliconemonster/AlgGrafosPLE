@@ -2,9 +2,9 @@ import java.io.FileReader;
 import java.io.BufferedReader;
 
 public class FileGraph {
-	public Digraph open_text( ) {
+	public Graph open_text( ) {
 		String thisLine = null;
-		Digraph dg1 = new Digraph( );
+		Graph dg1 = new Graph( );
 		String pieces[ ];
 
 		try {
@@ -18,7 +18,7 @@ public class FileGraph {
 			    dg1.add_vertex( v1 );
 			    for( int i = 2; i < pieces.length; i++ ) {
    					int v2 = Integer.parseInt( pieces[ i ] );
-					dg1.add_arc( v1, v2 );
+					dg1.add_edge( v1, v2 );
 				}				    
 		    }       
 		} catch(Exception e) {
