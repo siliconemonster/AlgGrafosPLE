@@ -168,28 +168,26 @@ public class Graph extends Digraph {
       return;
     }
 
-    enumerate(vSet, ind+1);
+    enumerate(conjPartes, vSet, ind+1);
     ArrayList<Vertex> newVset = vSet + vertex_set[ind];
-    enumerate(newVset, ind+1);
+    enumerate(conjPartes, newVset, ind+1);
   }
 
-  ArrayList<Pair<vertice,vertice>> listaAdjacencias; //um vétice é ligado no outro vértice por exemplo [(1, 2), (1, 3), (2, 3), (3, 7)]
-  private void link(){
+  private void link(ArrayList<ArrayList<Vertex>> conjPartes){
     //juntar as arestas e gerar cada subgrafo
 	  ArrayList<Graph> subgrafos;
-	 for (passar por cada lista de vertices ){ //passar por cada conjunto de partes
+	 for (ArrayList<Vertex> combVertices : conjPartes){ //passar por cada conjunto de partes
 	 	Graph newSubgraph = new Graph();
-	 	for(para cada vertice ){ //linha incompleta
-	 		newSubgraph.add_vertex(vertice.i);
+	 	for(Vertex vertice : combVertices){ //passar por cada vértice da combinação de vértices
+	 		newSubgraph.add_vertex(vertice.id);
 		}
-		for (tamanho da lista) {
-			  if (vertice do grafo esta no subgrafo){  //linha incompleta
-				  aresta do vertice do subgrafo = newSubgraph.add_arc1(); //linha incompleta
-			  }
-			  //outra ideia
-			  if (na lista de adjacencias checar se o par está no subgrafo){ //linha incompleta
-				aresta do vertice do subgrafo = newSubgraph.add_arc1(); //linha incompleta
-			}
+		for (Vertex vertice : combVertices) { //passar por cada vértice da combinação de vértices novamente pois preciso que todos os vértices já tenham sido adicionados
+		    HashMap<Integer,Vertex> vizinhancaOrig = this.vertex_set.get(vertice.id).nbhood; //peguei a vizinhança do vértice em questão (no for)
+            for(HashMap.Entry<Integer, Vertex> viz : vizinhancaOrig.entrySet()){
+                if (newSubgraph.vertex_set.containsKey(viz.getKey())){  //checa se viz está no subgrafo
+                  newSubgraph.add_arc1(vertice.id, viz.getKey()); //adiciona arco ao subgrafo
+                }
+            }
 		}
 	 }
   }
