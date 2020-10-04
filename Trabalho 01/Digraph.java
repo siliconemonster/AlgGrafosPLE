@@ -176,9 +176,10 @@ public class Digraph implements Serializable {
 
     public boolean is_connected() {
         // fazer: se direcionado ? encontrar o subjacente
-        this.DFS(null);
+        this.BFS(2);
         for(Vertex vertice : vertex_set.values()){
-            if(vertice.parent == null){
+            vertice.print();
+            if(vertice.d == null){
                 return false;
             }
         }
@@ -193,13 +194,17 @@ public class Digraph implements Serializable {
     public HashMap<Integer, Integer> BFS( Integer id_raiz ) {
         //Hashmap que salva a distância de cada vértice à raiz
         HashMap<Integer, Integer> distancias = new HashMap<Integer, Integer>();
-        Vertex raiz = vertex_set.get( id_raiz ); //uma raiz local ao método
+        Vertex raiz = vertex_set.get(id_raiz); //uma raiz local ao método
         // feito
+
+        for (Vertex v1 : vertex_set.values()) { //resetar todas as distâncias a cada vez que rodar
+            v1.d = null;
+        }
         raiz.d = 0; //distancia inicial é zero pra qualquer outro vértices
-                    //porque ainda não começou a contar nada;
+        //porque ainda não começou a contar nada;
 
         Queue<Vertex> lista = new LinkedList<Vertex>();//cria uma lista
-        lista.add( raiz ) ; //o primeiro a ser posto na fila (não sei por que ele chamou de lista)
+        lista.add(raiz); //o primeiro a ser posto na fila (não sei por que ele chamou de lista)
 
         Vertex atual; //vértice que está sendo visitado
 

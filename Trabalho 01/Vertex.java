@@ -54,7 +54,7 @@ public class Vertex implements Serializable, Comparable<Vertex> {
         for( Vertex v : nbhood.values())
             System.out.print(" " + v.id );
         if( d != null )
-    		    System.out.print(". d " + d + ", f " + f );
+    		    System.out.print(". distância " + d + ", f " + f );
         if( parent != null)
             System.out.print(". Pai " + parent.id + " distância " + d );
         /*else if ( d == null )

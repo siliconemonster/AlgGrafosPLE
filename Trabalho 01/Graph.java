@@ -142,9 +142,10 @@ public class Graph extends Digraph {
   	ArrayList<HashMap<Integer, HashMap<Integer, Integer>>> distancias = new ArrayList<>();
 
   	if(!this.is_connected()){
-  	    System.out.print("O grafo inserido não é conexo.\nUm grafo de distância hereditária precisa ser conexo.\n");
+  	    System.out.print("\nO grafo inserido não é conexo.\nUm grafo de distância hereditária precisa ser conexo.\n");
   	    return false;
     }
+      System.out.print("\nO grafo é conexo.\n");
 
     distancias.add(distGrafo(this)); //fazer bfs do grafo original para descobrir as distâncias. A posição 0 é do grafo original
     enumerate(conjPartes, new ArrayList<Vertex>(), 0); // encontra todos os conjuntos de partes possíveis
