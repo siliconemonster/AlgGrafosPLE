@@ -93,9 +93,9 @@ public class AlgGrafos {
                 case 16:
           			FileGraph fg1 = new FileGraph( );
           			g1 = fg1.open_text( );
-                /*case 17:
+                case 17:
                     g1.isDistanceHereditary();
-                    break;*/
+                    break;
             }
         }
     }

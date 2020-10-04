@@ -101,14 +101,19 @@ public class Graph extends Digraph {
     }
   }
 
-  // Método do trabalho 1:
-  // Um grafo g é de distância hereditária se é conexo e, para qualquer subgrafo induzido dele,
-  // a distância entre dois vértices desse subgrafo é a mesma, no subgrafo e no grafo original.
-  //
-  // A ideia do algoritmo:
-  // Conseguir encontrar todos os subgrafos induzidos desse grafo e comparar todas as distâncias.
-  // Inicialmente fazer uma BFS/DFS no grafo original para poder guardar as distâncias de cada vértice
-  //
+    // Método do trabalho 1:
+    // Um grafo g é de distância hereditária se é conexo e, para qualquer subgrafo induzido dele,
+    // a distância entre dois vértices desse subgrafo é a mesma, no subgrafo e no grafo original.
+    //
+    // A ideia do algoritmo:
+    // Conseguir encontrar todos os subgrafos induzidos desse grafo e comparar todas as distâncias.
+    // Inicialmente fazer uma BFS/DFS no grafo original para poder guardar as distâncias de cada vértice
+    //
+    // Fontes usadas para pesquisa:
+    //    https://www.graphclasses.org/classes/gc_80.html
+    //    https://en.wikipedia.org/wiki/Distance-hereditary_graph
+    //    https://core.ac.uk/download/pdf/82240981.pdf
+
 	/*
 
         1   2   3   7
@@ -133,18 +138,16 @@ public class Graph extends Digraph {
   	ArrayList<ArrayList<Vertex>> conjPartes = new ArrayList<ArrayList<Vertex>>();
 
   	//lista de distâncias: contém as distâncias de cada vértice de cada grafo (tal grafo, tal raiz, tal vértice, tal distância)
-  	ArrayList<ArrayList<HashMap<Integer, Integer>>> distâncias;
+  	ArrayList<HashMap<Integer, HashMap<Integer, Integer>>> distancias = new ArrayList<>();
 
-    distancias[0] = distGrafo(); //fazer bfs do grafo original para descobrir as distâncias. A posição 0 é do grafo original
+    distancias.add(distGrafo(this)); //fazer bfs do grafo original para descobrir as distâncias. A posição 0 é do grafo original
     conjPartes = enumerate(conjPartes, , 0); // encontra todos os conjuntos de partes possíveis
     subgrafos = link(conjPartes); //liga os conjuntos de partes e as arestas
-    subgrafos = removeSubgrafo(subgrafos);//se o subgrafo for desconexo, sai do conjunto
+    removeSubgrafo(subgrafos);//se o subgrafo for desconexo, sai do conjunto
 
     //fazer bfs de cada subgrafo
       for (int i = 0; i <= subgrafos.size(); i++){ //laço para cada subgrafo do conjunto
-          for (int j = 0; i<= subgrafos.vertex_set.size(); i++){ //laço para cada vértice do conjunto ser a raiz da busca
-              distancias[j+1] = BFS(j); //a primeira distância é a do grafo original
-          }
+          distancias.add(distGrafo(subgrafos.get(i)));
       }
     comparaDistancia(distancias); // comparar distâncias entre os subgrafos e o grafo original
 
@@ -152,11 +155,11 @@ public class Graph extends Digraph {
       return disHereditaria;
   }
 
-  private void distGrafo(){  //TEORICAMENTE tudo certo
+  private HashMap<Integer, HashMap<Integer, Integer>> distGrafo(Graph grafo){  //TEORICAMENTE tudo certo
       //para cada raiz, a distância de cada vértice
-  	ArrayList<HashMap<Integer, Integer>> distancia; //talvez não possa ser um arraylist
-  	for(i = 0; i <= vertex_set.size; i++){
-  		distancia[i] = BFS(i);
+  	HashMap<Integer, HashMap<Integer, Integer>> distancia = new HashMap<>(); //talvez não possa ser um arraylist
+  	for(int i = 0; i <= grafo.vertex_set.size(); i++){
+  		distancia.put(i, BFS(i));
 	}
   	return distancia;
   }
@@ -173,9 +176,9 @@ public class Graph extends Digraph {
     enumerate(conjPartes, newVset, ind+1);
   }
 
-  private void link(ArrayList<ArrayList<Vertex>> conjPartes){
+  private ArrayList<Graph> link(ArrayList<ArrayList<Vertex>> conjPartes){ //TEORICAMENTE tudo certo
     //juntar as arestas e gerar cada subgrafo
-	  ArrayList<Graph> subgrafos;
+	  ArrayList<Graph> subgrafos = new ArrayList<Graph>();
 	 for (ArrayList<Vertex> combVertices : conjPartes){ //passar por cada conjunto de partes
 	 	Graph newSubgraph = new Graph();
 	 	for(Vertex vertice : combVertices){ //passar por cada vértice da combinação de vértices
@@ -189,118 +192,41 @@ public class Graph extends Digraph {
                 }
             }
 		}
+		subgrafos.add(newSubgraph);
 	 }
+	 return subgrafos;
   }
-  private void removeSubgrafo(ArrayList<Graph> subgrafos){
-  	for(i = 0; i <= subgrafos.size; i++){
-  		if(!subgrafos[i].is_Connected){
-  			remove do conjunto //linha incompleta
+  private void removeSubgrafo(ArrayList<Graph> subgrafos){ //TEORICAMENTE tudo certo
+      ArrayList<Integer> indices = new ArrayList<>(); //uma lista para salvar os índices a serem excluídos
+      for(int i = 0; i <= subgrafos.size(); i++){ //passa em cada subgrafo
+  		if(!subgrafos.get(i).is_connected()){ //se o subgrafo não for conexo
+  		    indices.add(i); //adiciona o índice à lista
 		}
-	}
+      }
+      for(int indice : indices){
+          subgrafos.remove(indice); //remove cada subgrafo não conexo
+      }
   }
-  comparaDistancia(){
+  private void comparaDistancia(ArrayList<HashMap<Integer, HashMap<Integer, Integer>>> distanciaGeral){
   	//
-	  for(i = 0; i >= subgrafos.size; i++){
-		  if(g1.d == subgrafo[i].d){
+      HashMap<Integer, HashMap<Integer, Integer>> distanciasOrig = distanciaGeral.get(0);
 
-		  }
-	  }
+      for(int i = 1; i <= distanciaGeral.size(); i++){ //passar por cada subgrafo induzido
+          HashMap<Integer, HashMap<Integer, Integer>> distanciasSubgrafo = distanciaGeral.get(i);
+
+          for(HashMap.Entry<Integer, HashMap<Integer,Integer>> distVertices : distanciasOrig.entrySet()){ //passar por cada vértice do grafo original
+              if(!distanciasSubgrafo.containsKey(distVertices.getKey())){ //se o vértice não estiver no subgrafo induzido, passa para o próximo
+                  continue;
+              }
+              for(HashMap.Entry<Integer, Integer> distRaiz : distVertices.getValue().entrySet()){
+                  if(!distanciasSubgrafo.get(distVertices.getKey()).containsKey(distRaiz.getKey())){
+                      continue;
+                  }
+                  if(!distRaiz.getValue().equals(distanciasSubgrafo.get(distVertices.getKey()).get(distRaiz.getKey()))){
+                      //NÃO É DE DISTANCIA HEREDITÁRIA
+                  }
+              }
+          }
+      }
   }
-
-
-/*  // Para um grafo ser de distância hereditária:
-  // * todo caminho é ou o menor deles, ou ele precisa ter pelo menos uma aresta conectando dois
-  // vértices cujo caminho é não consecutivo;
-  // * todo ciclo de tamanho 5 ou maior tem pelo menos duas diagonais que se cruzam;
-  // * para cada grafo com 4 vértices u, v, w, and x, pelo menos duas das três somas das distâncias
-  // d(u,v)+d(w,x), d(u,w)+d(v,x), and d(u,x)+d(v,w) são iguais uma a outra;
-  // * não tem, como um subgrafo isométrico, nenhum ciclo de tamanho 5 ou maior, ou nenhum dos 3 grafos:
-  //          um grafo de ciclo de 5 vértices com uma corda, um grafo de ciclo de 5 vértices com duas
-  //          cordas que não se cruzam, e um grafo de ciclo de 6 vértices com uma corda conectando vértices
-  //          opostos;
-  //  * pode ser construído de um único vértice com uma sequência das três operações:
-  //          1 - Adicionar um novo vértice conectado por uma aresta a um vértice existente do grafo,
-  //          2 - Substituir qualquer vértice do grafo por um par de vértices, onde cada um deles tem os mesmos
-  //          vizinhos que o vértice substituído. Esses novos vértices são chamados de "false twins",
-  //          3 - Substituir qualquer vértice do grafo por um par de vértices, onde cada um deles tem os mesmos
-  //          vizinhos não apenas que o vértice substituído, mas também que o outro vértice do par. Esses vértices
-  //          são chamados de "true twins";
-  // * pode ser completamente decomposto em cliques e estrelas por uma decomposição "split";
-  // * tem a mínima partição hierárquica (1);
-  // * tem uma caracterização proibida. Nenhum subgrafo induzido pode ser uma "house" (grafo complementar de um grafo
-  // com caminho de 5 vértices), um "hole" (grafo de ciclo de 5 ou mais vértices), um domino" (grafo com ciclo de 6
-  // vértices mais uma aresta diagonal entre dois vértices opostos), ou uma "gem" (um ciclo de 5 vértices mais duas
-  // arestas diagonais que incidem no mesmo vértice).
-  //
-  // Fontes usadas para pesquisa:
-  //    https://www.graphclasses.org/classes/gc_80.html
-  //    https://en.wikipedia.org/wiki/Distance-hereditary_graph
-  //    https://core.ac.uk/download/pdf/82240981.pdf
-  public boolean isDistanceHereditary(){
-    //precisa cumprir os 8 requisitos acima
-    if (is_connected()){
-
-      if(!MenorCaminhoOuAresta() ?????????? ){
-        return false;
-      }
-
-      if(!acyclic() && ??????????){
-        return false;
-      }
-
-      if(){
-        return false;
-      }
-
-      if(){
-        return false;
-      }
-
-      if(){
-        return false;
-      }
-
-      //clique star
-      if(){
-        return false;
-      }
-
-      if(){
-        return false;
-      }
-
-      if (HHDG()){
-        return false;
-      }
-
-      return true;
-    }
-    return false;
-  }
-
-  //Checa se o grafo tem alguma dessas caracterizações proibidas.
-  //Ter uma delas já é o suficiente para o problema em questão.
-  private boolean HHDG(){
-    //HOUSE = grafo complementar de um grafo com caminho de 5 vértices
-    if(){
-      return true;
-    }
-
-    //HOLE = grafo cíclico de 5 ou mais vértices ?????????
-    if (!acyclic() && vertex_set.size >= 5){
-      return true;
-    }
-
-    //DOMINO = grafo com ciclo de 6 vértices + aresta diagonal entre dois vértices opostos
-    if(!acyclic() && ??????????){
-      return true;
-    }
-
-    //GEM = grafo com ciclo de 5 vértices +  2 arestas diagonais incidentes no mesmo vértice
-    if(!acyclic() && ??????????){
-      return true;
-    }
-
-    return false;
-  }*/
 }
