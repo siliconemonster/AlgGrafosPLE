@@ -215,14 +215,14 @@ public class Graph extends Digraph {
           HashMap<Integer, HashMap<Integer, Integer>> distanciasSubgrafo = distanciaGeral.get(i); //uma variável para salvar a distância de cada vértice a cada raiz dos subgrafosgrafos
 
           for(HashMap.Entry<Integer, HashMap<Integer,Integer>> distVertices : distanciasOrig.entrySet()){ //passar por cada vértice do grafo original
-              if(!distanciasSubgrafo.containsKey(distVertices.getKey())){ //se o vértice não estiver no subgrafo induzido, passa para a próxima iteração do laço acima
+              if(!distanciasSubgrafo.containsKey(distVertices.getKey())){ //se a raiz não estiver no subgrafo induzido, passa para a próxima iteração do laço acima
                   continue;
               }
               for(HashMap.Entry<Integer, Integer> distRaiz : distVertices.getValue().entrySet()){
-                  if(!distanciasSubgrafo.get(distVertices.getKey()).containsKey(distRaiz.getKey())){ //se o vértice da vizinhança não estiver no subgrafo induzido, passa para a próxima iteração do laço acima
+                  if(!distanciasSubgrafo.get(distVertices.getKey()).containsKey(distRaiz.getKey())){ //se o vértice da listagem de distâncias comparadas não estiver no subgrafo induzido, passa para a próxima iteração do laço acima
                       continue;
                   }
-                  if(!distRaiz.getValue().equals(distanciasSubgrafo.get(distVertices.getKey()).get(distRaiz.getKey()))){
+                  if(!distRaiz.getValue().equals(distanciasSubgrafo.get(distVertices.getKey()).get(distRaiz.getKey()))){ //compara se o valor da distância é igual
                       //NÃO É DE DISTANCIA HEREDITÁRIA
                   }
               }
