@@ -209,17 +209,17 @@ public class Graph extends Digraph {
   }
   private void comparaDistancia(ArrayList<HashMap<Integer, HashMap<Integer, Integer>>> distanciaGeral){
   	//
-      HashMap<Integer, HashMap<Integer, Integer>> distanciasOrig = distanciaGeral.get(0);
+      HashMap<Integer, HashMap<Integer, Integer>> distanciasOrig = distanciaGeral.get(0); //uma variável para salvar a distância de cada vértice a cada raiz do grafo original
 
       for(int i = 1; i <= distanciaGeral.size(); i++){ //passar por cada subgrafo induzido
-          HashMap<Integer, HashMap<Integer, Integer>> distanciasSubgrafo = distanciaGeral.get(i);
+          HashMap<Integer, HashMap<Integer, Integer>> distanciasSubgrafo = distanciaGeral.get(i); //uma variável para salvar a distância de cada vértice a cada raiz dos subgrafosgrafos
 
           for(HashMap.Entry<Integer, HashMap<Integer,Integer>> distVertices : distanciasOrig.entrySet()){ //passar por cada vértice do grafo original
-              if(!distanciasSubgrafo.containsKey(distVertices.getKey())){ //se o vértice não estiver no subgrafo induzido, passa para o próximo
+              if(!distanciasSubgrafo.containsKey(distVertices.getKey())){ //se o vértice não estiver no subgrafo induzido, passa para a próxima iteração do laço acima
                   continue;
               }
               for(HashMap.Entry<Integer, Integer> distRaiz : distVertices.getValue().entrySet()){
-                  if(!distanciasSubgrafo.get(distVertices.getKey()).containsKey(distRaiz.getKey())){
+                  if(!distanciasSubgrafo.get(distVertices.getKey()).containsKey(distRaiz.getKey())){ //se o vértice da vizinhança não estiver no subgrafo induzido, passa para a próxima iteração do laço acima
                       continue;
                   }
                   if(!distRaiz.getValue().equals(distanciasSubgrafo.get(distVertices.getKey()).get(distRaiz.getKey()))){
