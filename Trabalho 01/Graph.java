@@ -95,37 +95,18 @@ public class Graph extends Digraph {
     }
 
     // Método do trabalho 1:
-    // Um grafo g é de distância hereditária se é conexo e, para qualquer subgrafo induzido dele,
-    // a distância entre dois vértices desse subgrafo é a mesma, no subgrafo e no grafo original.
+    // Um grafo g é de distância hereditária se é conexo e, para qualquer subgrafo induzido conexo
+    // dele, a distância entre dois vértices desse subgrafo é a mesma, no subgrafo e no grafo original.
     //
     // A ideia do algoritmo:
     // Conseguir encontrar todos os subgrafos induzidos desse grafo e comparar todas as distâncias.
-    // Inicialmente fazer uma BFS/DFS no grafo original para poder guardar as distâncias de cada vértice
+    // Inicialmente fazer uma BFS no grafo original para poder guardar as distâncias de cada vértice
     //
     // Fontes usadas para pesquisa:
     //    https://www.graphclasses.org/classes/gc_80.html
     //    https://en.wikipedia.org/wiki/Distance-hereditary_graph
     //    https://core.ac.uk/download/pdf/82240981.pdf
     //    https://slideplayer.com/slide/4734042/
-
-	/*
-
-        1   2   3   7
-    1[  0   1   1   0  ]
-    2[  1   0   0   0  ]
-    3[  1   0   0   0  ]
-    7[  0   0   0   0  ]
-
-    1 -> 2, 3
-    2 -> 1
-    3 -> 1
-    7 ->
-
-    Matriz[2][1]
-
-    */
-
-
 
     public boolean isDistanceHereditary(){
         ArrayList<Graph> subgrafos;
@@ -233,7 +214,7 @@ public class Graph extends Digraph {
         }
         return subgrafos;
     }
-    private void removeSubgrafo(ArrayList<Graph> subgrafos) { //TEORICAMENTE tudo certo
+    private void removeSubgrafo(ArrayList<Graph> subgrafos) {
         //remove de subgrafos o grafo atual caso ele não seja conexo
         subgrafos.removeIf(grafoAtual -> grafoAtual.verticeList.isEmpty()); //remove o conjunto vazio
         subgrafos.removeIf(grafoAtual -> !grafoAtual.is_connected());
@@ -241,7 +222,7 @@ public class Graph extends Digraph {
             g.print();
         }*/
     }
-    private boolean comparaDistancia(ArrayList<Graph> subgrafos, ArrayList<HashMap<Integer, HashMap<Integer, Integer>>> distanciaGeral){ //TEORICAMENTE tudo certo
+    private boolean comparaDistancia(ArrayList<Graph> subgrafos, ArrayList<HashMap<Integer, HashMap<Integer, Integer>>> distanciaGeral){
         //
         HashMap<Integer, HashMap<Integer, Integer>> distanciasOrig = distanciaGeral.get(0); //uma variável para salvar a distância de cada vértice a cada raiz do grafo original
 
