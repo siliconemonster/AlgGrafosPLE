@@ -12,7 +12,7 @@ public class Vertex implements Serializable, Comparable<Vertex> {
     protected int ind_set;
 
     public Vertex ( int id ) {
-		    // id >= 1
+        // id >= 1
         this.id = id;
         nbhood = new HashMap<Integer,Vertex>();
         //parent = null;
@@ -20,11 +20,11 @@ public class Vertex implements Serializable, Comparable<Vertex> {
     }
 
     @Override public int compareTo( Vertex otherVertex ) {
-  		if( otherVertex.f > this.f)
-  			return 1;
-  		else
-  			return -1;
-  	}
+        if( otherVertex.f > this.f)
+            return 1;
+        else
+            return -1;
+    }
 
     public void add_neighbor( Vertex viz ) {
 
@@ -42,21 +42,21 @@ public class Vertex implements Serializable, Comparable<Vertex> {
     }
 
     protected Vertex get_root( ) {
-  		if( parent == null )
-  			root = this;
-  		else
-  			root = parent.get_root( );
-  		return root;
-  	}
+        if( parent == null )
+            root = this;
+        else
+            root = parent.get_root( );
+        return root;
+    }
 
     public void print() {
         System.out.print("\nId do vértice " + id + ", Vizinhança: " );
         for( Vertex v : nbhood.values())
             System.out.print(" " + v.id );
         if( d != null )
-    		    System.out.print(". distância " + d + ", f " + f );
+            System.out.print(". distância " + d + ", f " + f );
         if( parent != null)
-            System.out.print(". Pai " + parent.id + " distância " + d );
+            System.out.print(". Pai " + parent.id + " distância " + d);
         /*else if ( d == null )
             System.out.print(". Não alcançável pela raiz");
         else

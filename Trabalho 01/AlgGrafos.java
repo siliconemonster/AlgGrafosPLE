@@ -35,7 +35,7 @@ public class AlgGrafos {
                     write( g1 );
                     break;
                 case 4:
-					           // fazer
+                    // fazer
                     g1.add_vertex( 1 );
                     g1.add_vertex( 2 );
                     g1.add_vertex( 3 );
@@ -43,9 +43,9 @@ public class AlgGrafos {
                     break;
                 case 5:
                     // fazer
-                     // g1.add_edge(1,2);
-                     // g1.add_edge(1,3);
-                     // fazer: criar uma opção
+                    // g1.add_edge(1,2);
+                    // g1.add_edge(1,3);
+                    // fazer: criar uma opção
                     g1.add_arc(1,2);
                     g1.add_arc(1,3);
                     g1.add_arc(2,3);
@@ -53,12 +53,12 @@ public class AlgGrafos {
                     g1.add_arc(3,1);
                     break;
                 case 6:
-					 System.out.print("Vértice a excluir: ");
-					 int id = scan1.nextInt();
-					 g1.del_vertex( id );
-					 break;
+                    System.out.print("Vértice a excluir: ");
+                    int id = scan1.nextInt();
+                    g1.del_vertex( id );
+                    break;
                 case 7:
-				    // fazer
+                    // fazer
                     g1.BFS( 4 );
                     break;
                 case 8:
@@ -66,34 +66,34 @@ public class AlgGrafos {
                     g2.print();
                     break;
                 case 9:
-          			g1.compact( );
-          			break;
+                    g1.compact( );
+                    break;
                 case 10:
-    				g1.DFS( null );
-    				break;
+                    g1.DFS( null );
+                    break;
                 case 11:
-    				List<Vertex> ts_vertex_set = g1.topological_sorting( );
-    				System.out.printf("\n\n Ordenação topológica \n");
-    				for ( Vertex v1 : ts_vertex_set )
-    				   System.out.printf("\n id: " + v1.id + " f: " + v1.f );
-    				break;
+                    List<Vertex> ts_vertex_set = g1.topological_sorting( );
+                    System.out.printf("\n\n Ordenação topológica \n");
+                    for ( Vertex v1 : ts_vertex_set )
+                        System.out.printf("\n id: " + v1.id + " f: " + v1.f );
+                    break;
                 case 12:
-    				Digraph d2 = g1.reverse( );
-    				d2.print( );
-    				break;
+                    Digraph d2 = g1.reverse( );
+                    d2.print( );
+                    break;
                 case 13:
-    				g1.CFC( );
+                    g1.CFC( );
                 case 14:
-    				g1.is_bipartite( );
-    				break;
+                    g1.is_bipartite( );
+                    break;
                 case 15:
-          			g2 = g1.subjacent( );
-          			g2.bicon_comp( );
-          			break;
+                    g2 = g1.subjacent( );
+                    g2.bicon_comp( );
+                    break;
                 case 16:
-          			FileGraph fg1 = new FileGraph( );
-          			g1 = fg1.open_text( );
-          			break;
+                    FileGraph fg1 = new FileGraph( );
+                    g1 = fg1.open_text( );
+                    break;
                 case 17:
                     g1.isDistanceHereditary();
                     break;
