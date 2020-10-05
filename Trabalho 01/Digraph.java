@@ -10,10 +10,12 @@ public class Digraph implements Serializable {
     protected HashMap<Integer,Vertex> vertex_set;
     protected int time;
     private Boolean acyclic;
+    ArrayList<Vertex> verticeList;
 
     public Digraph() {
 
         vertex_set = new HashMap<Integer,Vertex>();
+        verticeList = new ArrayList<>();
     }
 
     public void add_vertex( ) {
@@ -176,9 +178,9 @@ public class Digraph implements Serializable {
 
     public boolean is_connected() {
         // fazer: se direcionado ? encontrar o subjacente
-        this.BFS(2);
+        this.BFS(this.verticeList.get(0).id);
         for(Vertex vertice : vertex_set.values()){
-            vertice.print();
+            //vertice.print();
             if(vertice.d == null){
                 return false;
             }

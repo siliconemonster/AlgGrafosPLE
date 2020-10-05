@@ -1,21 +1,13 @@
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Collections;
-import java.util.Stack;
+import java.util.*;
 
 public class Graph extends Digraph {
 
     private Stack<Vertex> st1;
     //private ArrayList<ArrayList<Vertex>> conjSubgrafos; //lista de conjuntos de partes de subgrafos
-    ArrayList<Vertex> verticeList;
 
     public Graph() {
         st1 = new Stack<Vertex>();
-        verticeList = new ArrayList<>();
     }
 
     @Override public void add_arc( Integer id1, Integer id2) {
@@ -114,6 +106,7 @@ public class Graph extends Digraph {
     //    https://www.graphclasses.org/classes/gc_80.html
     //    https://en.wikipedia.org/wiki/Distance-hereditary_graph
     //    https://core.ac.uk/download/pdf/82240981.pdf
+    //    https://slideplayer.com/slide/4734042/
 
 	/*
 
@@ -134,13 +127,14 @@ public class Graph extends Digraph {
 
 
 
-    public boolean isDistanceHereditary(){  //TEORICAMENTE tudo certo
+    public boolean isDistanceHereditary(){
         ArrayList<Graph> subgrafos;
         ArrayList<ArrayList<Vertex>> conjPartes = new ArrayList<ArrayList<Vertex>>();
         boolean distHereditaria;
 
         //lista de distâncias: contém as distâncias de cada vértice de cada grafo (tal grafo, tal raiz, tal vértice, tal distância)
         ArrayList<HashMap<Integer, HashMap<Integer, Integer>>> distancias = new ArrayList<>();
+        verticeList.addAll(vertex_set.values()); // lista para facilitar a medição da quantidade de vértices no método enumerate
 
         if(!this.is_undirected()){
             System.out.print("\n\nO grafo inserido é direcionado.\nUm grafo de distância hereditária precisa ser não direcionado.\n");
@@ -153,27 +147,48 @@ public class Graph extends Digraph {
         System.out.print("\nO grafo é conexo.\n");
 
         distancias.add(distGrafo(this)); //fazer bfs do grafo original para descobrir as distâncias. A posição 0 é do grafo original
+        /*for(HashMap.Entry<Integer, HashMap<Integer, Integer>> d : distancias.get(0).entrySet()){
+            System.out.print(d.getKey() + " - ");
+            for(HashMap.Entry<Integer ,Integer> v : d.getValue().entrySet()){
+                System.out.print("(" + v.getKey() + ", " + v.getValue() + ") ");
+            }
+            System.out.println();
+        }*/
 
-        verticeList.addAll(vertex_set.values()); // lista para facilitar a medição da quantidade de vértices no método enumerate
         enumerate(conjPartes, new ArrayList<Vertex>(), 0); // encontra todos os conjuntos de partes possíveis
+        /*for(ArrayList<Vertex> v : conjPartes){
+            for(Vertex v1: v){
+                System.out.print(v1.id + " ");
+            }
+            System.out.println();
+        }*/
         subgrafos = link(conjPartes); //liga os conjuntos de partes e as arestas
         removeSubgrafo(subgrafos);//se o subgrafo for desconexo, sai do conjunto
 
         //fazer bfs de cada subgrafo
-        for (int i = 0; i <= subgrafos.size(); i++){ //laço para cada subgrafo do conjunto
+        for (int i = 0; i < subgrafos.size(); i++){ //laço para cada subgrafo do conjunto
             distancias.add(distGrafo(subgrafos.get(i)));
+            /*for(HashMap.Entry<Integer, HashMap<Integer, Integer>> d : distancias.get(i+1).entrySet()){
+                System.out.print(d.getKey() + " - ");
+                for(HashMap.Entry<Integer ,Integer> v : d.getValue().entrySet()){
+                    System.out.print("(" + v.getKey() + ", " + v.getValue() + ") ");
+                }
+                System.out.println();
+            }
+            System.out.println("--------------------");*/
         }
+
         distHereditaria = comparaDistancia(subgrafos, distancias); // comparar distâncias entre os subgrafos e o grafo original
 
 
         return distHereditaria;
     }
 
-    private HashMap<Integer, HashMap<Integer, Integer>> distGrafo(Graph grafo){  //TEORICAMENTE tudo certo
+    private HashMap<Integer, HashMap<Integer, Integer>> distGrafo(Graph grafo){
         //para cada raiz, a distância de cada vértice
         HashMap<Integer, HashMap<Integer, Integer>> distancia = new HashMap<>();
         for(int i : grafo.vertex_set.keySet()){
-            distancia.put(i, BFS(i)); //calcula a distância de cada raiz utilizando a BFS
+            distancia.put(i, grafo.BFS(i)); //calcula a distância de cada raiz utilizando a BFS
         }
         return distancia;
     }
@@ -181,11 +196,11 @@ public class Graph extends Digraph {
     //método recursivo para encontrar todos os conjuntos possíveis de vertíces dos futuros subgrafos
     private void enumerate(ArrayList<ArrayList<Vertex>> conjPartes, ArrayList<Vertex> vSet, int ind){
         if (ind == this.verticeList.size()){ //se o índice for o último
-            System.out.print("[ ");
+            /*System.out.print("[ ");
             for(Vertex v : vSet){
                 System.out.print(v.id + " ");
             }
-            System.out.println("]");
+            System.out.println("]");*/
             conjPartes.add(vSet); //adiciona ao conjunto de partes do futuro subgrafo
             return;
         }
@@ -196,13 +211,13 @@ public class Graph extends Digraph {
         enumerate(conjPartes, newVset, ind+1); //chama novamente o método, mas dessa vez com o novo conjunto
     }
 
-    private ArrayList<Graph> link(ArrayList<ArrayList<Vertex>> conjPartes){ //TEORICAMENTE tudo certo
+    private ArrayList<Graph> link(ArrayList<ArrayList<Vertex>> conjPartes){
         //juntar as arestas e gerar cada subgrafo
         ArrayList<Graph> subgrafos = new ArrayList<Graph>();
         for (ArrayList<Vertex> combVertices : conjPartes){ //passar por cada conjunto de partes
             Graph newSubgraph = new Graph();
             for(Vertex vertice : combVertices){ //passar por cada vértice da combinação de vértices
-                newSubgraph.add_vertex(vertice.id);
+                newSubgraph.add_vertex(vertice.id); //adicionar ao subgrafo novo
             }
             for (Vertex vertice : combVertices) { //passar por cada vértice da combinação de vértices novamente pois preciso que todos os vértices já tenham sido adicionados
                 HashMap<Integer,Vertex> vizinhancaOrig = this.vertex_set.get(vertice.id).nbhood; //peguei a vizinhança do vértice em questão (no for)
@@ -212,26 +227,25 @@ public class Graph extends Digraph {
                     }
                 }
             }
+            newSubgraph.verticeList.addAll(newSubgraph.vertex_set.values()); //para checar se é conexo
+            //newSubgraph.print();
             subgrafos.add(newSubgraph);
         }
         return subgrafos;
     }
-    private void removeSubgrafo(ArrayList<Graph> subgrafos){ //TEORICAMENTE tudo certo
-        ArrayList<Integer> indices = new ArrayList<>(); //uma lista para salvar os índices a serem excluídos
-        for(int i = 0; i <= subgrafos.size(); i++){ //passa em cada subgrafo
-            if(!subgrafos.get(i).is_connected()){ //se o subgrafo não for conexo
-                indices.add(i); //adiciona o índice à lista
-            }
-        }
-        for(int indice : indices){
-            subgrafos.remove(indice); //remove cada subgrafo não conexo
-        }
+    private void removeSubgrafo(ArrayList<Graph> subgrafos) { //TEORICAMENTE tudo certo
+        //remove de subgrafos o grafo atual caso ele não seja conexo
+        subgrafos.removeIf(grafoAtual -> grafoAtual.verticeList.isEmpty()); //remove o conjunto vazio
+        subgrafos.removeIf(grafoAtual -> !grafoAtual.is_connected());
+        /*for(Graph g : subgrafos){
+            g.print();
+        }*/
     }
     private boolean comparaDistancia(ArrayList<Graph> subgrafos, ArrayList<HashMap<Integer, HashMap<Integer, Integer>>> distanciaGeral){ //TEORICAMENTE tudo certo
         //
         HashMap<Integer, HashMap<Integer, Integer>> distanciasOrig = distanciaGeral.get(0); //uma variável para salvar a distância de cada vértice a cada raiz do grafo original
 
-        for(int i = 1; i <= distanciaGeral.size(); i++){ //passar por cada subgrafo induzido
+        for(int i = 1; i < distanciaGeral.size(); i++){ //passar por cada subgrafo induzido
             HashMap<Integer, HashMap<Integer, Integer>> distanciasSubgrafo = distanciaGeral.get(i); //uma variável para salvar a distância de cada vértice a cada raiz dos subgrafosgrafos
 
             for(HashMap.Entry<Integer, HashMap<Integer,Integer>> distVertices : distanciasOrig.entrySet()){ //passar por cada vértice do grafo original
@@ -244,14 +258,27 @@ public class Graph extends Digraph {
                     }
                     if(!distRaiz.getValue().equals(distanciasSubgrafo.get(distVertices.getKey()).get(distRaiz.getKey()))){ //compara se o valor da distância é igual
                         //NÃO É DE DISTANCIA HEREDITÁRIA
-                        System.out.print("\n O grafo não é de Distância Hereditária:\n");
-                        subgrafos.get(i-1).print();
+                        System.out.print("\nO grafo não é de Distância Hereditária:\nPerceba que a distância do subgrafo é diferente da do grafo original:\n");
+                        System.out.println("Subgrafo induzido:");
+                        imprimeDistancia(distanciasSubgrafo);
+                        System.out.println("\nGrafo original:");
+                        imprimeDistancia(distanciasOrig);
                         return false;
                     }
                 }
             }
         }
-        System.out.print("\n O grafo é de Distância Hereditária");
+        System.out.println("\n O grafo é de Distância Hereditária.");
         return true;
+    }
+
+    private void imprimeDistancia(HashMap<Integer, HashMap<Integer, Integer>> distancias) {
+        for(HashMap.Entry<Integer, HashMap<Integer, Integer>> d : distancias.entrySet()){
+            System.out.print(d.getKey() + " - ");
+            for(HashMap.Entry<Integer ,Integer> v : d.getValue().entrySet()){
+                System.out.print("(" + v.getKey() + ", " + v.getValue() + ") ");
+            }
+            System.out.println();
+        }
     }
 }
