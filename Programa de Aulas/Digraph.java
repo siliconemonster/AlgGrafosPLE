@@ -26,6 +26,12 @@ public class Digraph implements Serializable {
         }
     }
 
+    public void add_arc( Integer id1, Integer id2, Integer weight ) {
+        add_arc( id1, id2 );
+        Vertex v1 = vertex_set.get(id1);
+        v1.add_weight( id2, weight );
+    }
+
     public void add_arc( Integer id1, Integer id2) {
         try {
             Vertex v1 = vertex_set.get(id1);
@@ -34,6 +40,7 @@ public class Digraph implements Serializable {
         } catch(Exception e) {
             this.add_vertex( id1 );
             this.add_vertex( id2 );
+            // podia ter chamado recursivamente
             Vertex v1 = vertex_set.get(id1);
             Vertex v2 = vertex_set.get(id2);
             v1.add_neighbor( v2 );
@@ -216,8 +223,6 @@ public class Digraph implements Serializable {
             ordering.addAll( vertex_set.values( ) );
         }
         acyclic = true;
-        for( Vertex v1 : vertex_set.values() )
-            v1.parent = null;
         time = 0;
         for( Vertex v1 : ordering )
             if( v1.d == null )
@@ -318,6 +323,42 @@ public class Digraph implements Serializable {
         Graph g1 = this.subjacent( );
         if( ! g1.is_bipartite( ) )
             return false;
+        return true;
+    }
+
+    private void Initialize_Single_Source( Vertex s ) {
+        for( Vertex ve1 : vertex_set.values( ) ) {
+            // maximum value of int
+            ve1.d = 2147483647;
+            ve1.parent = null;
+        }
+        s.d = 0;
+    }
+
+    private void relax( Vertex ve1, Vertex ve2 ) {
+        if( ve1.d == 2147483647 )
+            return;
+        if( ve2.d > ve1.d + ve1.arc_weights.get( ve2.id ) ) {
+            ve2.d = ve1.d + ve1.arc_weights.get( ve2.id );
+            ve2.parent = ve1;
+        }
+    }
+
+    public boolean Bellmann_Ford( int id ) {
+        Vertex s = vertex_set.get( id );
+        Initialize_Single_Source( s );
+
+        for( int i = 1; i < vertex_set.size( ); i++ )  // Se conexo O( n + m )
+            for( Vertex ve1 : vertex_set.values( ) )
+                for( Vertex ve2 : ve1.nbhood.values( ) )
+                    relax( ve1, ve2 );
+
+        for( Vertex ve1 : vertex_set.values( ) )
+            for( Vertex ve2 : ve1.nbhood.values( ) ) {
+                if( ve1.d != 2147483647 )
+                    if( ve2.d > ve1.d + ve1.arc_weights.get( ve2.id ) )
+                        return false;
+            }
         return true;
     }
 

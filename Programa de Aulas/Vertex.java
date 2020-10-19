@@ -5,6 +5,7 @@ import java.util.HashMap;
 public class Vertex implements Serializable, Comparable<Vertex> {
     protected Integer id;
     protected HashMap<Integer,Vertex> nbhood;
+    protected HashMap<Integer,Integer> arc_weights;
     // parent: refere-se a qual busca?
     protected Vertex parent, root;
     protected Integer d, f, low;
@@ -15,6 +16,7 @@ public class Vertex implements Serializable, Comparable<Vertex> {
         // id >= 1
         this.id = id;
         nbhood = new HashMap<Integer,Vertex>();
+        arc_weights = new HashMap<Integer,Integer>( );
         //parent = null;
         //dist = null;
     }
@@ -28,6 +30,10 @@ public class Vertex implements Serializable, Comparable<Vertex> {
 
     public void add_neighbor( Vertex viz ) {
         nbhood.put(viz.id, viz);
+    }
+    
+    protected void add_weight( Integer id_nb, Integer weight ) {
+        arc_weights.put( id_nb, weight );
     }
 
     public int degree() {
