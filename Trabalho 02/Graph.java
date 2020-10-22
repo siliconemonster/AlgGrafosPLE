@@ -99,11 +99,12 @@ public class Graph extends Digraph {
         }
     }
     // Método do trabalho 2:
-    // em um grafo não direcionado, um emparelhamento (ou acomplamento) é um conjunto de arestas tal que cada
-    // duas arestas não são incidentes. Não existem duas arestas compartilhando vértice. Checar se é emparelhamento (?)
+    // Em um grafo não direcionado, um emparelhamento (ou acomplamento) é um conjunto de arestas tal que cada
+    // duas arestas não são incidentes, ou seja, não existem duas arestas nesse conjunto compartilhando vértices.
+    // Um emparelhamento máximo é o conjunto de maior tamanho de emparelhamento do grafo.
     //
     // A ideia do algoritmo:
-    //
+    // imprimir o emparelhamento máximo do grafo dado.
     //
     //
     // Fontes usadas para pesquisa:
@@ -112,9 +113,14 @@ public class Graph extends Digraph {
     //
     //
 
-    public void emparelhamentoMax(){
+    public void emparelhamentoMax(){ //pode ser void mesmo, só desejo imprimir o emparelhamento máximo no final
 
-        return;
+        checaIncidencia();
+
+    }
+
+    public void checaIncidencia(){
+
     }
 }
 
