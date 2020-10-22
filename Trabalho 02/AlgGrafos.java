@@ -7,10 +7,10 @@ import java.util.List;
 
 public class AlgGrafos {
 
-    static Digraph dg1;
+    static Graph g1;
 
     public static void main(String args[ ]) {
-        dg1 = new Digraph();
+        g1 = new Graph();
         main_menu( );
     }
 
@@ -25,45 +25,45 @@ public class AlgGrafos {
         boolean goon = true;
 
         while( goon ) {
-            System.out.printf( menu );
+            System.out.print( menu );
             int choice = scan1.nextInt();
             switch( choice ) {
                 case 0:
                     goon = false;
                     break;
                 case 1:
-                    dg1.print();
+                    g1.print();
                     break;
                 case 2:
-                    dg1 = read( );
+                    g1 = read( );
                     break;
                 case 3:
-                    write( dg1 );
+                    write( g1 );
                     break;
                 case 4:
                     // fazer
-                    dg1.add_vertex( 1 );
-                    dg1.add_vertex( 2 );
-                    dg1.add_vertex( 3 );
-                    dg1.add_vertex( 4 );
+                    g1.add_vertex( 1 );
+                    g1.add_vertex( 2 );
+                    g1.add_vertex( 3 );
+                    g1.add_vertex( 4 );
                     // fazer
 //                    g1.add_edge(1,2);
 //                    g1.add_edge(1,3);
                     // fazer: criar uma opção
-                    dg1.add_arc(1,2,-1);
-                    dg1.add_arc(1,3,3);
-                    dg1.add_arc(2,3,3);
-                    dg1.add_arc(1,4,1);
-                    dg1.add_arc(3,1,2);
+                    g1.add_arc(1,2,-1);
+                    g1.add_arc(1,3,3);
+                    g1.add_arc(2,3,3);
+                    g1.add_arc(1,4,1);
+                    g1.add_arc(3,1,2);
                     break;
                 case 6:
                     System.out.print("Vértice a excluir: ");
                     int id = scan1.nextInt();
-                    dg1.del_vertex( id );
+                    g1.del_vertex( id );
                     break;
                 case 7:
                     FileGraph fg1 = new FileGraph( );
-                    dg1 = fg1.open_text( );
+                    g1 = fg1.open_text( );
                     break;
 
                 case 8:
@@ -77,57 +77,62 @@ public class AlgGrafos {
 
         String line1 = "\n\n 0 Sair \n 1 Print \n 7 BFS \n 8 Subjacente \n 9 Compactar";
         String line2 =  "\n 10 DFS \n 11 Ordenação topológica \n 12 Reverter arcos \n 13 CFC";
-        String line3 = "\n 14 Bipartido \n 15 Comp. biconexas \n 16 Bellman Ford \n Escolha a opção: ";
-        String menu = line1 + line2 + line3;
+        String line3 = "\n 14 Bipartido \n 15 Comp. biconexas \n 16 Bellman Ford \n 17 Emparelhamento Máximo ";
+        String line4 = "\n Escolha a opção: ";
+        String menu = line1 + line2 + line3 + line4;
 
         boolean goon = true;
 
         while( goon ) {
-            System.out.printf( menu );
+            System.out.print( menu );
             int choice = scan1.nextInt();
             switch( choice ) {
                 case 0:
                     goon = false;
                     break;
                 case 1:
-                    dg1.print();
+                    g1.print();
                     break;
                 case 7:
                     // fazer
-                    dg1.BFS( 4 );
+                    g1.BFS( 4 );
                     break;
                 case 8:
-                    Graph g2 = dg1.subjacent( );
+                    Graph g2 = g1.subjacent( );
                     g2.print( );
                     break;
                 case 9:
-                    dg1.compact( );
+                    g1.compact( );
                     break;
                 case 10:
-                    dg1.DFS( null );
+                    g1.DFS( null );
                     break;
                 case 11:
-                    List<Vertex> ts_vertex_set = dg1.topological_sorting( );
-                    System.out.printf("\n\n Ordenação topológica \n");
+                    List<Vertex> ts_vertex_set = g1.topological_sorting( );
+                    System.out.print("\n\n Ordenação topológica \n");
                     for ( Vertex v1 : ts_vertex_set )
-                        System.out.printf("\n id: " + v1.id + " f: " + v1.f );
+                        System.out.print("\n id: " + v1.id + " f: " + v1.f );
                     break;
                 case 12:
-                    Digraph d2 = dg1.reverse( );
+                    Digraph d2 = g1.reverse( );
                     d2.print( );
                     break;
                 case 13:
-                    dg1.CFC( );
+                    g1.CFC( );
                     break;
                 case 14:
-                    dg1.is_bipartite( );
+                    g1.is_bipartite( );
                     break;
                 case 15:
-                    g2 = dg1.subjacent( );
+                    g2 = g1.subjacent( );
                     g2.bicon_comp( );
                     break;
                 case 16:
-                    dg1.Bellmann_Ford( 1 );
+                    g1.Bellmann_Ford( 1 );
+                    break;
+                case 17:
+                    g1.emparelhamentoMax();
+                    break;
             }
         }
     }

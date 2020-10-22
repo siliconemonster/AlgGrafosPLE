@@ -98,4 +98,23 @@ public class Graph extends Digraph {
             System.out.print( v2.id );
         }
     }
+    // Método do trabalho 2:
+    // em um grafo não direcionado, um emparelhamento (ou acomplamento) é um conjunto de arestas tal que cada
+    // duas arestas não são incidentes. Não existem duas arestas compartilhando vértice. Checar se é emparelhamento (?)
+    //
+    // A ideia do algoritmo:
+    //
+    //
+    //
+    // Fontes usadas para pesquisa:
+    //    https://pt.wikipedia.org/wiki/Acoplamento_(teoria_dos_grafos)
+    //
+    //
+    //
+
+    public void emparelhamentoMax(){
+
+        return;
+    }
 }
+
