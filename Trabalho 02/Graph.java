@@ -101,7 +101,12 @@ public class Graph extends Digraph {
     // Método do trabalho 2:
     // Em um grafo não direcionado, um emparelhamento (ou acomplamento) é um conjunto de arestas tal que cada
     // duas arestas não são incidentes, ou seja, não existem duas arestas nesse conjunto compartilhando vértices.
+    // Dado um grafo G, um acoplamento M é subconjunto de arestas de G tal qual todo vértice em G é extremo de,
+    //  no máximo, uma aresta em M. Um acoplamento M em G é um conjunto arestas não-adjacentes par-a-par; ou
+    //  seja, duas arestas de M não compartilham um mesmo vértice.
+    //
     // Um emparelhamento máximo é o conjunto de maior tamanho de emparelhamento do grafo.
+    // Como é um conjunto par a par, posso criar um Pair<aresta1, aresta2> ?????????
     //
     // A ideia do algoritmo:
     // imprimir o emparelhamento máximo do grafo dado.
