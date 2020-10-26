@@ -119,6 +119,7 @@ public class Graph extends Digraph {
     //
 
     public void emparelhamentoMax(){ //pode ser void mesmo, só desejo imprimir o emparelhamento máximo no final
+        ArrayList<Pair> arestas;
 
         checaIncidencia();
 
