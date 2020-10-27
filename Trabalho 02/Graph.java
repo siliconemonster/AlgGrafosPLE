@@ -1,11 +1,5 @@
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Collections;
-import java.util.Stack;
+import java.util.*;
 
 public class Graph extends Digraph {
 
@@ -119,14 +113,63 @@ public class Graph extends Digraph {
     //
 
     public void emparelhamentoMax(){ //pode ser void mesmo, só desejo imprimir o emparelhamento máximo no final
-        ArrayList<Pair> arestas;
+        ArrayList<Set<Vertex>> arestas = new ArrayList<>(); //conjunto de pares de vértices para representar as arestas
 
-        checaIncidencia();
+        if(!this.is_undirected()){
+            System.out.print("\n\nO grafo inserido é direcionado. Por favor insira um grafo não-direcionado.\n");
+            return;
+        }
+
+        salvaArestas(arestas);
+
+        checaIncidencia(arestas);
+        comparaTamanho();
 
     }
 
-    public void checaIncidencia(){
+    private void salvaArestas(ArrayList<Set<Vertex>> arestas){
+        for(Vertex v: vertex_set.values()){ //para cada vértice v
+            for(HashMap.Entry<Integer, Vertex> viz: v.nbhood.entrySet()){ //para cada vizinho do vértice v
+                if(arestas.contains(Set.of(v,viz.getValue()))){ //se a aresta já tiver sido adicionada ( [2,1] = [1,2]), pula
+                    continue;
+                }
+                arestas.add(Set.of(v,viz.getValue())); // adiciona na lista de arestas
+                //System.out.println(Set.of(v,viz.getValue()).equals(Set.of(viz.getValue(),v)));
+            }
+        }
+        //imprimeArestas(arestas);
+    }
 
+    private void checaIncidencia(ArrayList<Set<Vertex>> arestas){
+        ArrayList<Vertex> marcados = new ArrayList<>(); //vértices que já foram usados
+        ArrayList<Set<Vertex>> emparelhamento = new ArrayList<>();
+
+        for(Set<Vertex> aresta : arestas){ //para cada aresta de arestas
+            Set<Vertex> intersecao = new HashSet<Vertex>(aresta); //o método de interseção modificaria arestas, então criei uma cópia
+            intersecao.retainAll(marcados); // interseção de vértices de arestas com vértices marcados
+            if(!intersecao.isEmpty()){ // já existe pelo menos um vértice da aresta no marcados
+                continue;
+            }
+            marcados.addAll(aresta); // marca vértices da aresta
+            emparelhamento.add(aresta); //adiciona aresta no emparelhamento
+        }
+
+        imprimeArestas(emparelhamento);
+
+    }
+
+    private void comparaTamanho(){
+
+    }
+
+    private void imprimeArestas(ArrayList<Set<Vertex>> arestas) {
+        for(Set<Vertex> aresta: arestas){
+            System.out.print("( ");
+            for(Vertex v : aresta){
+                System.out.print(v.id + " ");
+            }
+            System.out.println(")");
+        }
     }
 }
 
