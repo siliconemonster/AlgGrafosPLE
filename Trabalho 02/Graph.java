@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Graph extends Digraph {
@@ -140,26 +141,42 @@ public class Graph extends Digraph {
         //imprimeArestas(arestas);
     }
 
-    private void checaIncidencia(ArrayList<Set<Vertex>> arestas){
-        ArrayList<Vertex> marcados = new ArrayList<>(); //vértices que já foram usados
-        ArrayList<Set<Vertex>> emparelhamento = new ArrayList<>();
+    private void checaIncidencia(ArrayList<Set<Vertex>> arestas) {
+        ArrayList<ArrayList<Set<Vertex>>> emparelhamentos = new ArrayList<>(); //Lista com o conjunto de emparelhamentos
+        ArrayList<Set<Vertex>> rot = new ArrayList<>(arestas); //lista de arestas rotacionadas
 
-        for(Set<Vertex> aresta : arestas){ //para cada aresta de arestas
-            Set<Vertex> intersecao = new HashSet<Vertex>(aresta); //o método de interseção modificaria arestas, então criei uma cópia
-            intersecao.retainAll(marcados); // interseção de vértices de arestas com vértices marcados
-            if(!intersecao.isEmpty()){ // já existe pelo menos um vértice da aresta no marcados
-                continue;
+        for (int i = 0; i < arestas.size(); i++) {
+            ArrayList<Vertex> marcados = new ArrayList<>(); //vértices que já foram usados
+
+            emparelhamentos.add(new ArrayList<Set<Vertex>>());
+            Collections.rotate(rot, 1);
+
+            for (Set<Vertex> aresta : rot) { //para cada aresta de arestas
+                Set<Vertex> intersecao = new HashSet<Vertex>(aresta); //o método de interseção modificaria arestas, então criei uma cópia
+                intersecao.retainAll(marcados); // interseção de vértices de arestas com vértices marcados
+                if (!intersecao.isEmpty()) { // já existe pelo menos um vértice da aresta no marcados
+                    continue;
+                }
+                marcados.addAll(aresta); // marca vértices da aresta
+                emparelhamentos.get(i).add(aresta); //adiciona aresta no emparelhamento
             }
-            marcados.addAll(aresta); // marca vértices da aresta
-            emparelhamento.add(aresta); //adiciona aresta no emparelhamento
+            imprimeArestas(emparelhamentos.get(i));
+            //imprimeArestas(rot);
+
         }
+        comparaTamanho(emparelhamentos);
 
-        imprimeArestas(emparelhamento);
-
+        /*for (ArrayList<Set<Vertex>> emp : conjEmparelhamentos){
+            imprimeArestas(emp);
+        }*/
     }
 
-    private void comparaTamanho(){
+    private void comparaTamanho(ArrayList<ArrayList<Set<Vertex>>> emparelhamentos){
+        int i, tamanho;
 
+        for(i = 0; i < tamanho; i++){
+
+        }
     }
 
     private void imprimeArestas(ArrayList<Set<Vertex>> arestas) {
@@ -170,6 +187,7 @@ public class Graph extends Digraph {
             }
             System.out.println(")");
         }
+        System.out.println();
     }
 }
 
