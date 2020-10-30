@@ -124,7 +124,6 @@ public class Graph extends Digraph {
         salvaArestas(arestas);
 
         checaIncidencia(arestas);
-        comparaTamanho();
 
     }
 
@@ -160,7 +159,7 @@ public class Graph extends Digraph {
                 marcados.addAll(aresta); // marca vértices da aresta
                 emparelhamentos.get(i).add(aresta); //adiciona aresta no emparelhamento
             }
-            imprimeArestas(emparelhamentos.get(i));
+            //imprimeArestas(emparelhamentos.get(i));
             //imprimeArestas(rot);
 
         }
@@ -172,14 +171,19 @@ public class Graph extends Digraph {
     }
 
     private void comparaTamanho(ArrayList<ArrayList<Set<Vertex>>> emparelhamentos){
-        int i, tamanho;
+        int i = 0, tamanho = 0;
 
-        for(i = 0; i < tamanho; i++){
-
+        for(int j = 0; j < emparelhamentos.size(); j++){
+            if(emparelhamentos.get(j).size() > tamanho){
+                i = j;
+                tamanho = emparelhamentos.get(j).size();
+            }
         }
+        imprimeArestas(emparelhamentos.get(i), tamanho);
     }
 
-    private void imprimeArestas(ArrayList<Set<Vertex>> arestas) {
+    private void imprimeArestas(ArrayList<Set<Vertex>> arestas, int tamanho) {
+        System.out.println("\nO emparelhamento máximo possui "+ tamanho + " arestas:");
         for(Set<Vertex> aresta: arestas){
             System.out.print("( ");
             for(Vertex v : aresta){
@@ -187,7 +191,6 @@ public class Graph extends Digraph {
             }
             System.out.println(")");
         }
-        System.out.println();
     }
 }
 
