@@ -109,8 +109,7 @@ public class Graph extends Digraph {
     //
     // Fontes usadas para pesquisa:
     //    https://pt.wikipedia.org/wiki/Acoplamento_(teoria_dos_grafos)
-    //
-    //
+    //    https://en.wikipedia.org/wiki/Matching_(graph_theory)
     //
 
     public void emparelhamentoMax(){ //pode ser void mesmo, só desejo imprimir o emparelhamento máximo no final
@@ -122,9 +121,7 @@ public class Graph extends Digraph {
         }
 
         salvaArestas(arestas);
-
         checaIncidencia(arestas);
-
     }
 
     private void salvaArestas(ArrayList<Set<Vertex>> arestas){
@@ -134,23 +131,21 @@ public class Graph extends Digraph {
                     continue;
                 }
                 arestas.add(Set.of(v,viz.getValue())); // adiciona na lista de arestas
-                //System.out.println(Set.of(v,viz.getValue()).equals(Set.of(viz.getValue(),v)));
             }
         }
-        //imprimeArestas(arestas);
     }
 
     private void checaIncidencia(ArrayList<Set<Vertex>> arestas) {
         ArrayList<ArrayList<Set<Vertex>>> emparelhamentos = new ArrayList<>(); //Lista com o conjunto de emparelhamentos
-        ArrayList<Set<Vertex>> rot = new ArrayList<>(arestas); //lista de arestas rotacionadas
+        ArrayList<Set<Vertex>> rot = new ArrayList<>(arestas); //lista de arestas rotacionadas (cada hora uma está no começo)
 
         for (int i = 0; i < arestas.size(); i++) {
             ArrayList<Vertex> marcados = new ArrayList<>(); //vértices que já foram usados
 
-            emparelhamentos.add(new ArrayList<Set<Vertex>>());
-            Collections.rotate(rot, 1);
+            emparelhamentos.add(new ArrayList<Set<Vertex>>()); //cria cada emparelhamento e salva na lista de emparelhamentos
+            Collections.rotate(rot, 1); //rotaciona uma posição
 
-            for (Set<Vertex> aresta : rot) { //para cada aresta de arestas
+            for (Set<Vertex> aresta : rot) { //para cada aresta das arestas rotacionadas
                 Set<Vertex> intersecao = new HashSet<Vertex>(aresta); //o método de interseção modificaria arestas, então criei uma cópia
                 intersecao.retainAll(marcados); // interseção de vértices de arestas com vértices marcados
                 if (!intersecao.isEmpty()) { // já existe pelo menos um vértice da aresta no marcados
@@ -159,22 +154,16 @@ public class Graph extends Digraph {
                 marcados.addAll(aresta); // marca vértices da aresta
                 emparelhamentos.get(i).add(aresta); //adiciona aresta no emparelhamento
             }
-            //imprimeArestas(emparelhamentos.get(i));
-            //imprimeArestas(rot);
 
         }
         comparaTamanho(emparelhamentos);
-
-        /*for (ArrayList<Set<Vertex>> emp : conjEmparelhamentos){
-            imprimeArestas(emp);
-        }*/
     }
 
     private void comparaTamanho(ArrayList<ArrayList<Set<Vertex>>> emparelhamentos){
         int i = 0, tamanho = 0;
 
         for(int j = 0; j < emparelhamentos.size(); j++){
-            if(emparelhamentos.get(j).size() > tamanho){
+            if(emparelhamentos.get(j).size() > tamanho){ //caso o tamanho do próximo emparelhamento seja maior que o tamanho do anterior, atualiza
                 i = j;
                 tamanho = emparelhamentos.get(j).size();
             }
